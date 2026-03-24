@@ -151,7 +151,7 @@ Kopiowanie 1:1 nie skaluje się. Każdy nowy marketplace (bol.com, Kaufland, OTT
 >
 > **Krok 2 — Zależności i blokady**
 > Zadanie 4 blokuje spotkanie o 14:00 — jeśli wycena nie będzie gotowa, Sales idzie na spotkanie z pustymi rękami. To jedyny hard deadline dnia.
-> Zadanie 1 — klient czeka. Ale nie muszę naprawić buga od razu — wystarczy triage + ETA. Klient potrzebuje wiedzieć że ktoś się tym zajmuje.
+> Zadanie 1 — klient czeka. Ale nie muszę naprawić buga od razu — wystarczy triage (wstępna diagnoza i ocena skali problemu) + ETA. Klient potrzebuje wiedzieć że ktoś się tym zajmuje.
 >
 > **Krok 3 — Optymalizacja bloków czasu**
 > Deep work (zadanie 3) wymaga ~3h skupienia. Jeśli rozbiorę go na kawałki, stracę czas na context switching. Najlepiej go zrobić po zamknięciu zadań "z deadline'em" — wtedy mam czysty umysł.
