@@ -1,52 +1,109 @@
 import type { EanStatus, StanStatus } from "@/lib/types";
-import { Badge } from "@/components/ui/badge";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-const EAN_LABELS: Record<EanStatus, { text: string; variant: "default" | "secondary" | "destructive" | "outline"; tip: string }> = {
-  valid:            { text: "Poprawny",  variant: "default",     tip: "EAN-13 przechodzi walidację checksum" },
-  missing:          { text: "Brak",      variant: "destructive", tip: "Pole EAN jest puste" },
-  non_numeric:      { text: "Błędny",    variant: "destructive", tip: "Zawiera znaki inne niż cyfry" },
-  checksum_invalid: { text: "Checksum ✗", variant: "outline",    tip: "13 cyfr, ale checksum EAN-13 nie zgadza się" },
-};
+/* ── EAN Badge ── */
 
-const STAN_LABELS: Record<StanStatus, { variant: "default" | "secondary" | "destructive" | "outline"; tip: string }> = {
-  exact:     { variant: "default",     tip: "Dokładna wartość magazynowa" },
-  non_exact: { variant: "secondary",   tip: 'Warto\u015b\u0107 przybli\u017cona (np. "du\u017co")' },
-  empty:     { variant: "destructive", tip: "Brak danych o stanie" },
+const EAN_CONFIG: Record<
+  EanStatus,
+  { text: string; className: string; tip: string }
+> = {
+  valid: {
+    text: "Poprawny",
+    className:
+      "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+    tip: "EAN-13 przechodzi walidację checksum",
+  },
+  missing: {
+    text: "Brak",
+    className: "bg-red-500/10 text-red-400 border-red-500/20",
+    tip: "Pole EAN jest puste",
+  },
+  non_numeric: {
+    text: "Błędny",
+    className: "bg-red-500/10 text-red-400 border-red-500/20",
+    tip: "Zawiera znaki inne niż cyfry",
+  },
+  checksum_invalid: {
+    text: "Checksum",
+    className:
+      "bg-amber-500/10 text-amber-400 border-amber-500/20",
+    tip: "13 cyfr, ale checksum EAN-13 nie zgadza się",
+  },
 };
 
 export function EanBadge({ status }: { status: EanStatus }) {
-  const cfg = EAN_LABELS[status];
+  const cfg = EAN_CONFIG[status];
   return (
     <Tooltip>
       <TooltipTrigger className="cursor-default">
-        <Badge variant={cfg.variant} className="text-[11px] tracking-wide font-medium whitespace-nowrap">
+        <span
+          className={`inline-flex items-center rounded-md border px-2 py-0.5 text-[11px] font-medium tracking-wide ${cfg.className}`}
+        >
           {cfg.text}
-        </Badge>
+        </span>
       </TooltipTrigger>
-      <TooltipContent><p className="text-xs">{cfg.tip}</p></TooltipContent>
+      <TooltipContent>
+        <p className="text-xs">{cfg.tip}</p>
+      </TooltipContent>
     </Tooltip>
   );
 }
 
-export function StanBadge({ status, value }: { status: StanStatus; value: number | null }) {
-  const cfg = STAN_LABELS[status];
-  const display = status === "exact"
-    ? (value === 0 ? "0 szt." : `${value} szt.`)
-    : status === "non_exact" ? "~nieznany" : "—";
+/* ── Stan Badge ── */
+
+const STAN_CONFIG: Record<
+  StanStatus,
+  { className: string; tip: string }
+> = {
+  exact: {
+    className:
+      "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+    tip: "Dokładna wartość magazynowa",
+  },
+  non_exact: {
+    className:
+      "bg-amber-500/10 text-amber-400 border-amber-500/20",
+    tip: 'Wartość przybliżona (np. "dużo")',
+  },
+  empty: {
+    className: "bg-red-500/10 text-red-400 border-red-500/20",
+    tip: "Brak danych o stanie",
+  },
+};
+
+export function StanBadge({
+  status,
+  value,
+}: {
+  status: StanStatus;
+  value: number | null;
+}) {
+  const cfg = STAN_CONFIG[status];
+  const display =
+    status === "exact"
+      ? value === 0
+        ? "0 szt."
+        : `${value} szt.`
+      : status === "non_exact"
+        ? "~nieznany"
+        : "—";
 
   return (
     <Tooltip>
       <TooltipTrigger className="cursor-default">
-        <Badge variant={cfg.variant} className="text-[11px] tracking-wide font-medium tabular-nums whitespace-nowrap">
+        <span
+          className={`inline-flex items-center rounded-md border px-2 py-0.5 text-[11px] font-medium tabular-nums tracking-wide ${cfg.className}`}
+        >
           {display}
-        </Badge>
+        </span>
       </TooltipTrigger>
-      <TooltipContent><p className="text-xs">{cfg.tip}</p></TooltipContent>
+      <TooltipContent>
+        <p className="text-xs">{cfg.tip}</p>
+      </TooltipContent>
     </Tooltip>
   );
 }
