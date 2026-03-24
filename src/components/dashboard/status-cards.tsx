@@ -1,5 +1,4 @@
 import type { CleanProduct } from "@/lib/types";
-import { Card, CardContent } from "@/components/ui/card";
 
 interface StatusCardsProps {
   products: CleanProduct[];
@@ -7,41 +6,53 @@ interface StatusCardsProps {
 
 export function StatusCards({ products }: StatusCardsProps) {
   const total = products.length;
-  const eanIssues = products.filter(
-    (p) => p.ean_status !== "valid"
-  ).length;
-  const stockIssues = products.filter(
-    (p) => p.stan_status !== "exact"
-  ).length;
-  const allOk = products.filter(
-    (p) => p.ean_status === "valid" && p.stan_status === "exact"
-  ).length;
-
-  const cards = [
-    { label: "Produkty", value: total, accent: false },
-    { label: "Bez problemów", value: allOk, accent: false },
-    { label: "Problemy EAN", value: eanIssues, accent: eanIssues > 0 },
-    { label: "Problemy stanów", value: stockIssues, accent: stockIssues > 0 },
-  ];
+  const eanOk = products.filter((p) => p.ean_status === "valid").length;
+  const eanBad = total - eanOk;
+  const stockExact = products.filter((p) => p.stan_status === "exact").length;
+  const stockBad = total - stockExact;
 
   return (
-    <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-      {cards.map((card) => (
-        <Card key={card.label} className="border-border/50">
-          <CardContent className="p-4">
-            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-              {card.label}
-            </p>
-            <p
-              className={`text-2xl font-semibold tabular-nums mt-1 ${
-                card.accent ? "text-destructive" : "text-foreground"
-              }`}
-            >
-              {card.value}
-            </p>
-          </CardContent>
-        </Card>
-      ))}
+    <div className="grid grid-cols-4 gap-px bg-border/60 rounded-lg overflow-hidden border border-border/60">
+      <Metric label="Rekordy" value={total} />
+      <Metric label="EAN poprawne" value={eanOk} total={total} good />
+      <Metric label="EAN problemy" value={eanBad} total={total} bad={eanBad > 0} />
+      <Metric label="Stan niedokładny" value={stockBad} total={total} bad={stockBad > 0} />
+    </div>
+  );
+}
+
+function Metric({
+  label,
+  value,
+  total,
+  good,
+  bad,
+}: {
+  label: string;
+  value: number;
+  total?: number;
+  good?: boolean;
+  bad?: boolean;
+}) {
+  return (
+    <div className="bg-card px-4 py-3">
+      <p className="text-[11px] font-medium text-muted-foreground/70 uppercase tracking-widest leading-none mb-2">
+        {label}
+      </p>
+      <div className="flex items-baseline gap-1.5">
+        <span
+          className={`text-xl font-semibold tabular-nums leading-none ${
+            bad ? "text-red-500" : good ? "text-emerald-600" : "text-foreground"
+          }`}
+        >
+          {value}
+        </span>
+        {total !== undefined && (
+          <span className="text-xs text-muted-foreground/50 tabular-nums">
+            / {total}
+          </span>
+        )}
+      </div>
     </div>
   );
 }

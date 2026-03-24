@@ -6,48 +6,47 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-const EAN_CONFIG: Record<EanStatus, { label: string; variant: "default" | "secondary" | "destructive" | "outline"; tooltip: string }> = {
-  valid: { label: "OK", variant: "default", tooltip: "EAN-13 poprawny — checksum przechodzi" },
-  missing: { label: "Brak", variant: "destructive", tooltip: "Brak kodu EAN" },
-  non_numeric: { label: "Błąd", variant: "destructive", tooltip: "EAN zawiera znaki niebędące cyframi" },
-  checksum_invalid: { label: "Checksum", variant: "destructive", tooltip: "EAN nie przechodzi walidacji checksum EAN-13" },
+const EAN_LABELS: Record<EanStatus, { text: string; variant: "default" | "secondary" | "destructive" | "outline"; tip: string }> = {
+  valid:            { text: "Poprawny",  variant: "default",     tip: "EAN-13 przechodzi walidację checksum" },
+  missing:          { text: "Brak",      variant: "destructive", tip: "Pole EAN jest puste" },
+  non_numeric:      { text: "Błędny",    variant: "destructive", tip: "Zawiera znaki inne niż cyfry" },
+  checksum_invalid: { text: "Checksum ✗", variant: "outline",    tip: "13 cyfr, ale checksum EAN-13 nie zgadza się" },
 };
 
-const STAN_CONFIG: Record<StanStatus, { label: string; variant: "default" | "secondary" | "destructive" | "outline"; tooltip: string }> = {
-  exact: { label: "Dokładny", variant: "default", tooltip: "Dokładna wartość stanu magazynowego" },
-  non_exact: { label: "Niedokładny", variant: "secondary", tooltip: "Stan podany jako tekst (np. \"dużo\") — brak dokładnej wartości" },
-  empty: { label: "Brak", variant: "destructive", tooltip: "Brak informacji o stanie magazynowym" },
+const STAN_LABELS: Record<StanStatus, { variant: "default" | "secondary" | "destructive" | "outline"; tip: string }> = {
+  exact:     { variant: "default",     tip: "Dokładna wartość magazynowa" },
+  non_exact: { variant: "secondary",   tip: 'Warto\u015b\u0107 przybli\u017cona (np. "du\u017co")' },
+  empty:     { variant: "destructive", tip: "Brak danych o stanie" },
 };
 
 export function EanBadge({ status }: { status: EanStatus }) {
-  const config = EAN_CONFIG[status];
+  const cfg = EAN_LABELS[status];
   return (
     <Tooltip>
       <TooltipTrigger className="cursor-default">
-        <Badge variant={config.variant} className="text-xs font-medium">
-          {config.label}
+        <Badge variant={cfg.variant} className="text-[11px] tracking-wide font-medium whitespace-nowrap">
+          {cfg.text}
         </Badge>
       </TooltipTrigger>
-      <TooltipContent>
-        <p className="text-xs max-w-[200px]">{config.tooltip}</p>
-      </TooltipContent>
+      <TooltipContent><p className="text-xs">{cfg.tip}</p></TooltipContent>
     </Tooltip>
   );
 }
 
 export function StanBadge({ status, value }: { status: StanStatus; value: number | null }) {
-  const config = STAN_CONFIG[status];
-  const displayValue = status === "exact" ? `${value}` : config.label;
+  const cfg = STAN_LABELS[status];
+  const display = status === "exact"
+    ? (value === 0 ? "0 szt." : `${value} szt.`)
+    : status === "non_exact" ? "~nieznany" : "—";
+
   return (
     <Tooltip>
       <TooltipTrigger className="cursor-default">
-        <Badge variant={config.variant} className="text-xs font-medium tabular-nums">
-          {displayValue}
+        <Badge variant={cfg.variant} className="text-[11px] tracking-wide font-medium tabular-nums whitespace-nowrap">
+          {display}
         </Badge>
       </TooltipTrigger>
-      <TooltipContent>
-        <p className="text-xs max-w-[200px]">{config.tooltip}</p>
-      </TooltipContent>
+      <TooltipContent><p className="text-xs">{cfg.tip}</p></TooltipContent>
     </Tooltip>
   );
 }
