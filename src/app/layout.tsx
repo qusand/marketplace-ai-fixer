@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { ThemeProvider } from "@/components/theme-provider";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { ThemeProvider } from "@/components/dashboard/theme-provider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,9 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Marketplace AI-Fixer — vAutomate",
-  description:
-    "Automatyczne czyszczenie i normalizacja brudnych danych produktowych z eksportów partnerskich",
+  title: "Marketplace AI-Fixer",
+  description: "Czyszczenie i normalizacja danych produktowych z eksportów partnerskich",
 };
 
 export default function RootLayout({
@@ -31,14 +29,8 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-        >
-          <TooltipProvider>{children}</TooltipProvider>
-        </ThemeProvider>
+      <body className="min-h-full flex flex-col">
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

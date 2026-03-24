@@ -2,85 +2,62 @@
 
 Narzędzie do automatycznego czyszczenia i normalizacji brudnych danych produktowych z eksportów partnerskich.
 
-## Live Demo
-
-[https://marketplace-ai-fixer-opal.vercel.app](https://marketplace-ai-fixer-opal.vercel.app)
-
 ## Problem
 
-Partnerskie eksporty produktów zawierają niespójne formaty cen (`59.90 PLN` vs `59,90`), opisy w surowym HTML/JSON, brakujące lub błędne kody EAN, skrótowe nazwy kolorów (`j. szary`, `beż`) i niestandaryzowane wymiary (`040*060cm`). Ręczne czyszczenie to godziny pracy i gwarancja błędów.
+Partnerskie eksporty produktów zawierają niespójne formaty cen (`"59.90 PLN"` vs `"59,90"`), opisy w trzech różnych formatach (HTML, zagnieżdżony JSON, plain text), brakujące lub błędne kody EAN, oraz niestandardowe parametry (wymiary z gwiazdkami, skrócone nazwy kolorów). Ręczne czyszczenie to godziny pracy i gwarancja błędów.
 
 ## Rozwiązanie
 
-- **Automatyczna detekcja i czyszczenie 3 formatów opisów** (HTML, zagnieżdżony JSON, plain text)
-- **Normalizacja wymiarów** (`040*060cm` → `40 x 60 cm`), **kolorów** (`j. szary` → `jasnoszary`), **cen** (ujednolicony format)
-- **Walidacja EAN-13** z checksumą — jawne statusy zamiast cichego ukrywania problemów
-- **Generowanie tytułów Allegro** (max 75 znaków, zoptymalizowane pod SEO marketplace na bazie researchu rynkowego)
-- **Eksport do Excel** (.xlsx z formatowaniem warunkowym, auto-filter, frozen headers) i **CSV** (UTF-8 BOM, separator `;`)
-- **Drag & drop** — wrzuć własny plik JSON i przetworz go tym samym pipeline'em
-- **Profesjonalny dashboard** z widokiem przed/po, statusami jakości danych i panelem szczegółów (Sheet slide-out)
+- Automatyczna detekcja i czyszczenie 3 formatów opisów (HTML, JSON, plain text)
+- Normalizacja wymiarów (`040*060cm` → `40 x 60 cm`), kolorów (`j. szary` → `jasnoszary`), cen
+- Walidacja EAN-13 z checksumą — jawne statusy problemów zamiast cichego ukrywania
+- Generowanie tytułów Allegro zoptymalizowanych pod SEO (max 75 znaków)
+- Eksport do Excel (.xlsx) z formatowaniem warunkowym i CSV z BOM (polskie znaki)
+- Panel porównawczy "Przed → Po" z widokiem surowych i oczyszczonych danych
 
 ## Tech Stack
 
-Next.js 16 · Tailwind CSS 4 · shadcn/ui · TypeScript · exceljs
+Next.js 16 · TypeScript · Tailwind CSS v4 · shadcn/ui · ExcelJS
 
 ## Uruchomienie lokalne
 
 ```bash
-git clone https://github.com/qusand/marketplace-ai-fixer.git
-cd marketplace-ai-fixer
 npm install
 npm run dev
 ```
 
-Otwórz [http://localhost:3000](http://localhost:3000).
-
-## Weryfikacja pipeline'u
-
-```bash
-npx tsx src/lib/verify-pipeline.ts
-```
-
-Uruchamia 34 automatycznych testów porównujących output pipeline'u z tabelą referencyjną.
+Aplikacja startuje na `http://localhost:4000`.
 
 ## Struktura projektu
 
 ```
 src/
 ├── app/
-│   ├── page.tsx                    # Dashboard główny
-│   ├── layout.tsx                  # Layout z metadata
-│   └── api/export/
-│       ├── xlsx/route.ts           # Eksport Excel
-│       └── csv/route.ts            # Eksport CSV
+│   ├── page.tsx              # Strona główna — dashboard
+│   └── api/export/route.ts   # API endpoint do eksportu Excel/CSV
 ├── components/dashboard/
-│   ├── product-table.tsx           # Tabela produktów
-│   ├── status-cards.tsx            # Karty statusowe
-│   ├── status-badge.tsx            # Badge EAN/stan
-│   ├── product-detail.tsx          # Panel szczegółów (Sheet)
-│   ├── drop-zone.tsx               # Drag & drop upload JSON
-│   └── before-after.tsx            # Porównanie przed/po
+│   ├── dashboard.tsx          # Główny layout dashboardu
+│   ├── product-table.tsx      # Tabela produktów z klikalnymi wierszami
+│   ├── status-cards.tsx       # Karty statusowe (EAN, stany, stock)
+│   ├── before-after-tabs.tsx  # Zakładki porównania danych
+│   ├── product-detail-sheet.tsx # Panel szczegółów produktu (slide-out)
+│   ├── export-buttons.tsx     # Przyciski pobierania Excel/CSV
+│   ├── ean-badge.tsx          # Badge statusu EAN z tooltipem
+│   └── stock-badge.tsx        # Badge statusu stanu z tooltipem
 ├── lib/
-│   ├── types.ts                    # TypeScript types
-│   ├── pipeline.ts                 # Pipeline czyszczenia + tytuły Allegro
-│   ├── parsers.ts                  # Parsery: opis, wymiary, kolor, cena, stan
-│   ├── validators.ts              # Walidacja EAN-13
-│   └── verify-pipeline.ts         # Skrypt weryfikacyjny (34 testy)
+│   ├── data-processor.ts      # Pipeline czyszczenia danych
+│   └── types.ts               # Typy TypeScript
 └── data/
-    └── partner_export_dirty.json   # Dane wejściowe
+    └── partner_export_dirty.json  # Dane wejściowe
 ```
 
-## Czyszczenie danych — co narzędzie robi
+## Pipeline czyszczenia
 
-| Problem w danych | Rozwiązanie |
-|---|---|
-| Skrótowe kolory (`j. szary`, `beż`) | Mapowanie na pełne nazwy (`jasnoszary`, `beżowy`) |
-| Wymiary z gwiazdkami (`040*060cm`) | Normalizacja (`40 x 60 cm`) |
-| 3 formaty opisów (HTML, JSON, plain) | Auto-detekcja + ekstrakcja czystego tekstu |
-| Niespójne ceny (`59,90` vs `59.90 PLN`) | Ujednolicony format z walutą |
-| Mieszane stany (`15`, `"dużo"`, `0`) | Klasyfikacja: exact / non_exact / empty |
-| Błędne EAN-y (`""`, `"BŁĄD_ODCZYTU"`) | Walidacja checksum EAN-13 ze statusem |
-
-## Podejście
-
-Pipeline jest w pełni deterministyczny — zero AI guessingu, zero per-record exceptions. Wszystkie 4 rekordy przechodzą przez ten sam kod. Tytuły Allegro budowane na bazie researchu rynkowego (analiza bestsellerów, wzorców SEO) i grounded w danych źródłowych każdego SKU — żadna cecha w tytule nie jest dodana bez pokrycia w opisie produktu.
+| Pole | Transformacja |
+|------|--------------|
+| Wymiary | `040*060cm` → `40 x 60 cm` (osobne kolumny: szerokość, długość) |
+| Kolory | `j. szary` → `jasnoszary`, `c. szary` → `ciemnoszary`, `beż` → `beżowy` |
+| Ceny | `"59,90"` / `"59.90 PLN"` → `59.90` + `PLN` |
+| Opisy | Strip HTML tags, parsowanie JSON `sections.items`, normalizacja whitespace |
+| Stany | `15` → exact, `"dużo"` → non_exact, `0` → exact (brak w magazynie) |
+| EAN | Walidacja EAN-13 checksum, detekcja brakujących i nieterminowych wartości |

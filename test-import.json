@@ -1,0 +1,42 @@
+[
+  {
+    "NAZWA ORG": "Ręcznik Kąpielowy Luxus 070*140cm granatowy",
+    "SKU": "LUX-70140-NAV",
+    "Cena": "89.99 PLN",
+    "Opis ofe": "<div><p>Ręcznik kąpielowy z kolekcji Luxus. <b>Kolor: granatowy</b>. Wymiary 70x140cm. 100% bawełna egipska, gramatura 550g/m2.</p></div>",
+    "Stany": 42,
+    "EAN": "5907123456789"
+  },
+  {
+    "NAZWA ORG": "Ręcznik Kąpielowy Luxus 070*140cm biały",
+    "SKU": "LUX-70140-WHT",
+    "Cena": "89,99",
+    "Opis ofe": "Ręcznik Luxus biały 70x140cm. Bawełna egipska. Gramatura 550g. Miękki i chłonny.",
+    "Stany": "dużo",
+    "EAN": "5907123456796"
+  },
+  {
+    "NAZWA ORG": "Ręcznik Kąpielowy Luxus 050*100cm szary",
+    "SKU": "LUX-50100-GRY",
+    "Cena": "49.50 PLN",
+    "Opis ofe": "{\"sections\":[{\"items\":[{\"type\":\"TEXT\",\"content\":\"Ręcznik Luxus 50x100cm w kolorze szarym. 100% bawełna, gramatura 500g/m2. Oeko-Tex Standard 100.\"}]}]}",
+    "Stany": 0,
+    "EAN": ""
+  },
+  {
+    "NAZWA ORG": "Ręcznik Kąpielowy Luxus 050*100cm różowy",
+    "SKU": "LUX-50100-PNK",
+    "Cena": "49.50",
+    "Opis ofe": "<p>Ręcznik kąpielowy Luxus. Kolor: różowy. Materiał: bawełna 100%. Rozmiar: 50*100cm.</p>",
+    "Stany": 18,
+    "EAN": "590712345ABC"
+  },
+  {
+    "NAZWA ORG": "Ręcznik Kąpielowy Luxus 100*150cm kremowy",
+    "SKU": "LUX-100150-CRM",
+    "Cena": "129.00 PLN",
+    "Opis ofe": "Duży ręcznik kąpielowy Luxus kremowy. Wymiar 100x150cm. Bawełna egipska 600g/m2. Idealny na plażę.",
+    "Stany": 7,
+    "EAN": "5907123456819"
+  }
+]

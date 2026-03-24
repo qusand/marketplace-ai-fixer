@@ -1,5 +1,3 @@
-// Types matching spec section 4
-
 export type OpisFormat = "html" | "json-string" | "plain";
 export type StanStatus = "exact" | "non_exact" | "empty";
 export type EanStatus = "valid" | "missing" | "non_numeric" | "checksum_invalid";
@@ -11,6 +9,21 @@ export type RawProduct = {
   "Opis ofe": string;
   Stany: number | string;
   EAN: string;
+};
+
+export type ChangeType = "changed" | "unchanged" | "problem";
+
+export type ChangeLogField = {
+  field: string;
+  before: string;
+  after: string;
+  type: ChangeType;
+  reason: string;
+};
+
+export type ChangeLogEntry = {
+  sku: string;
+  fields: ChangeLogField[];
 };
 
 export type CleanProduct = {
@@ -29,4 +42,5 @@ export type CleanProduct = {
   ean_raw: string | null;
   ean_status: EanStatus;
   tytul_allegro: string;
+  material: string | null;
 };

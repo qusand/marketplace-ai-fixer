@@ -1,6 +1,7 @@
 "use client";
 
-import type { CleanProduct } from "@/lib/types";
+import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -9,70 +10,83 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { EanBadge, StanBadge } from "./status-badge";
+import { EanBadge } from "./ean-badge";
+import { StockBadge } from "./stock-badge";
+import { ProductDetailExpanded } from "./product-detail-expanded";
+import type { CleanProduct, RawProduct } from "@/lib/types";
 
-interface ProductTableProps {
+type Props = {
   products: CleanProduct[];
-  selectedSku: string | null;
-  onSelectProduct: (product: CleanProduct) => void;
-}
+  rawProducts: RawProduct[];
+};
 
-export function ProductTable({
-  products,
-  selectedSku,
-  onSelectProduct,
-}: ProductTableProps) {
+export function ProductTable({ products, rawProducts }: Props) {
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+
   return (
-    <div className="rounded-lg border border-border/60 bg-card overflow-hidden">
+    <div className="rounded-lg border border-border/50 overflow-hidden">
       <div className="overflow-x-auto">
         <Table>
           <TableHeader>
-            <TableRow className="hover:bg-transparent border-border/40">
-              <Th className="w-[140px] pl-4">SKU</Th>
-              <Th className="w-[110px]">Kolor</Th>
-              <Th className="w-[110px]">Wymiary</Th>
-              <Th className="w-[90px] text-right">Cena</Th>
-              <Th className="w-[100px] text-center">Stan</Th>
-              <Th className="w-[100px] text-center">EAN</Th>
-              <Th className="pr-4">Tytuł Allegro</Th>
+            <TableRow className="bg-muted/30 hover:bg-muted/30">
+              <TableHead className="text-xs font-semibold uppercase tracking-wider w-[140px]">
+                SKU
+              </TableHead>
+              <TableHead className="text-xs font-semibold uppercase tracking-wider w-[120px]">
+                Kolor
+              </TableHead>
+              <TableHead className="text-xs font-semibold uppercase tracking-wider w-[120px]">
+                Wymiary
+              </TableHead>
+              <TableHead className="text-xs font-semibold uppercase tracking-wider w-[90px] text-right">
+                Cena
+              </TableHead>
+              <TableHead className="text-xs font-semibold uppercase tracking-wider w-[110px] text-center">
+                Stan
+              </TableHead>
+              <TableHead className="text-xs font-semibold uppercase tracking-wider w-[100px] text-center">
+                EAN
+              </TableHead>
+              <TableHead className="text-xs font-semibold uppercase tracking-wider">
+                Tytuł Allegro
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {products.map((product) => {
-              const isSelected = product.sku === selectedSku;
+            {products.map((product, i) => {
+              const isExpanded = expandedIndex === i;
               return (
                 <TableRow
                   key={product.sku}
-                  className={`cursor-pointer transition-colors duration-100 border-border/30 ${
-                    isSelected
-                      ? "bg-primary/5 border-l-2 border-l-primary"
-                      : "hover:bg-muted/30"
-                  }`}
-                  onClick={() => onSelectProduct(product)}
+                  data-expanded={isExpanded || undefined}
+                  className="group cursor-pointer transition-colors duration-150 hover:bg-primary/5 data-[expanded]:bg-primary/5 data-[expanded]:border-b-0"
+                  onClick={() =>
+                    setExpandedIndex(isExpanded ? null : i)
+                  }
                 >
-                  <TableCell className="font-mono text-[13px] font-medium pl-4 py-3.5">
-                    {product.sku}
+                  <TableCell className="font-mono text-xs font-medium">
+                    <div className="flex items-center gap-1.5">
+                      <ChevronDown
+                        className={`h-3.5 w-3.5 text-muted-foreground transition-transform duration-200 ${
+                          isExpanded ? "rotate-180" : ""
+                        }`}
+                      />
+                      {product.sku}
+                    </div>
                   </TableCell>
-                  <TableCell className="text-[13px] capitalize text-foreground/90">
+                  <TableCell className="text-sm">
                     {product.kolor ?? "—"}
                   </TableCell>
-                  <TableCell className="text-[13px] tabular-nums text-muted-foreground">
+                  <TableCell className="text-sm tabular-nums">
                     {product.wymiary_display ?? "—"}
                   </TableCell>
-                  <TableCell className="text-[13px] text-right tabular-nums text-foreground/90">
-                    {product.cena_wartosc ? (
-                      <>
-                        {product.cena_wartosc}
-                        <span className="text-muted-foreground/50 ml-1 text-[11px]">
-                          {product.waluta}
-                        </span>
-                      </>
-                    ) : (
-                      "—"
-                    )}
+                  <TableCell className="text-sm text-right tabular-nums">
+                    {product.cena_wartosc
+                      ? `${product.cena_wartosc} zł`
+                      : "—"}
                   </TableCell>
                   <TableCell className="text-center">
-                    <StanBadge
+                    <StockBadge
                       status={product.stan_status}
                       value={product.stan_wartosc}
                     />
@@ -80,9 +94,12 @@ export function ProductTable({
                   <TableCell className="text-center">
                     <EanBadge status={product.ean_status} />
                   </TableCell>
-                  <TableCell className="text-[13px] pr-4 max-w-[340px] text-muted-foreground">
-                    <span className="line-clamp-1">
+                  <TableCell className="text-sm max-w-[300px]">
+                    <div className="truncate" title={product.tytul_allegro}>
                       {product.tytul_allegro}
+                    </div>
+                    <span className="text-[10px] text-muted-foreground">
+                      {product.tytul_allegro.length}/75
                     </span>
                   </TableCell>
                 </TableRow>
@@ -91,22 +108,15 @@ export function ProductTable({
           </TableBody>
         </Table>
       </div>
-    </div>
-  );
-}
 
-function Th({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <TableHead
-      className={`text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/50 bg-muted/20 h-10 ${className ?? ""}`}
-    >
-      {children}
-    </TableHead>
+      {/* Expanded detail panel — rendered outside the table for full width */}
+      {expandedIndex !== null && (
+        <ProductDetailExpanded
+          product={products[expandedIndex]}
+          rawProduct={rawProducts[expandedIndex]}
+          onCollapse={() => setExpandedIndex(null)}
+        />
+      )}
+    </div>
   );
 }

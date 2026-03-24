@@ -1,121 +1,79 @@
-import type { CleanProduct } from "@/lib/types";
+"use client";
+
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  PackageIcon,
-  ShieldCheckIcon,
-  ShieldAlertIcon,
-  AlertTriangleIcon,
-} from "lucide-react";
+import { Package, ShieldCheck, BarChart3, AlertTriangle } from "lucide-react";
+import type { CleanProduct } from "@/lib/types";
 
-interface StatusCardsProps {
+type Props = {
   products: CleanProduct[];
-}
-
-export function StatusCards({ products }: StatusCardsProps) {
-  const total = products.length;
-  const eanOk = products.filter((p) => p.ean_status === "valid").length;
-  const eanBad = total - eanOk;
-  const stockExact = products.filter((p) => p.stan_status === "exact").length;
-  const stockIssues = total - stockExact;
-
-  return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <MetricCard
-        label="Rekordy"
-        value={total}
-        icon={PackageIcon}
-        color="default"
-      />
-      <MetricCard
-        label="EAN poprawne"
-        value={eanOk}
-        total={total}
-        icon={ShieldCheckIcon}
-        color="green"
-      />
-      <MetricCard
-        label="EAN problemy"
-        value={eanBad}
-        total={total}
-        icon={ShieldAlertIcon}
-        color={eanBad > 0 ? "red" : "default"}
-      />
-      <MetricCard
-        label="Stan niedokładny"
-        value={stockIssues}
-        total={total}
-        icon={AlertTriangleIcon}
-        color={stockIssues > 0 ? "amber" : "default"}
-      />
-    </div>
-  );
-}
-
-type MetricColor = "default" | "green" | "red" | "amber";
-
-const COLOR_STYLES: Record<
-  MetricColor,
-  { icon: string; value: string; dot: string }
-> = {
-  default: {
-    icon: "text-muted-foreground/60",
-    value: "text-foreground",
-    dot: "bg-muted-foreground/30",
-  },
-  green: {
-    icon: "text-emerald-600 dark:text-emerald-400",
-    value: "text-foreground",
-    dot: "bg-emerald-500",
-  },
-  red: {
-    icon: "text-red-600 dark:text-red-400",
-    value: "text-foreground",
-    dot: "bg-red-500",
-  },
-  amber: {
-    icon: "text-amber-600 dark:text-amber-400",
-    value: "text-foreground",
-    dot: "bg-amber-500",
-  },
 };
 
-function MetricCard({
-  label,
-  value,
-  total,
-  icon: Icon,
-  color,
-}: {
-  label: string;
-  value: number;
-  total?: number;
-  icon: React.ComponentType<{ className?: string }>;
-  color: MetricColor;
-}) {
-  const styles = COLOR_STYLES[color];
+export function StatusCards({ products }: Props) {
+  const total = products.length;
+  const eanOk = products.filter((p) => p.ean_status === "valid").length;
+  const eanProblems = total - eanOk;
+  const stockExact = products.filter((p) => p.stan_status === "exact").length;
+  const stockProblems = total - stockExact;
+  const outOfStock = products.filter(
+    (p) => p.stan_status === "exact" && p.stan_wartosc === 0
+  ).length;
+
+  const cards = [
+    {
+      label: "Produkty",
+      value: total,
+      sub: "przetworzone",
+      accent: "text-primary",
+      icon: Package,
+      iconColor: "text-primary/60",
+    },
+    {
+      label: "EAN poprawne",
+      value: eanOk,
+      sub: `${eanProblems} z problemami`,
+      accent: eanProblems > 0 ? "text-red-500" : "text-primary",
+      icon: ShieldCheck,
+      iconColor: eanProblems > 0 ? "text-red-500/40" : "text-primary/60",
+    },
+    {
+      label: "Stany dokładne",
+      value: stockExact,
+      sub: `${stockProblems} niedokładne`,
+      accent: stockProblems > 0 ? "text-amber-500" : "text-primary",
+      icon: BarChart3,
+      iconColor: stockProblems > 0 ? "text-amber-500/40" : "text-primary/60",
+    },
+    {
+      label: "Brak w magazynie",
+      value: outOfStock,
+      sub: `z ${total} produktów`,
+      accent: outOfStock > 0 ? "text-amber-500" : "text-primary",
+      icon: AlertTriangle,
+      iconColor: outOfStock > 0 ? "text-amber-500/40" : "text-primary/60",
+    },
+  ];
 
   return (
-    <Card size="sm" className="border-border/60">
-      <CardContent>
-        <div className="flex items-center justify-between mb-2.5">
-          <p className="text-xs font-medium text-muted-foreground/70 tracking-wide">
-            {label}
-          </p>
-          <Icon className={`h-4 w-4 ${styles.icon}`} />
-        </div>
-        <div className="flex items-baseline gap-1.5">
-          <span
-            className={`text-2xl font-semibold tabular-nums leading-none ${styles.value}`}
-          >
-            {value}
-          </span>
-          {total !== undefined && (
-            <span className="text-sm text-muted-foreground/40 tabular-nums">
-              / {total}
-            </span>
-          )}
-        </div>
-      </CardContent>
-    </Card>
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      {cards.map((card) => {
+        const Icon = card.icon;
+        return (
+          <Card key={card.label} className="border-border/40 dark:border-border/20 transition-colors duration-150 hover:border-primary/30">
+            <CardContent className="pt-6 pb-5 px-6">
+              <div className="flex items-start justify-between">
+                <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-widest">
+                  {card.label}
+                </p>
+                <Icon className={`h-4 w-4 ${card.iconColor}`} />
+              </div>
+              <p className={`text-4xl font-bold mt-3 tracking-tight ${card.accent}`}>
+                {card.value}
+              </p>
+              <p className="text-xs text-muted-foreground mt-1.5">{card.sub}</p>
+            </CardContent>
+          </Card>
+        );
+      })}
+    </div>
   );
 }
