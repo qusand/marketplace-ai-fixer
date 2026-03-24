@@ -30,7 +30,7 @@ const EAN_CONFIG: Record<
   checksum_invalid: {
     text: "Checksum",
     className:
-      "bg-amber-500/10 text-amber-400 border-amber-500/20",
+      "bg-red-500/10 text-red-400 border-red-500/20",
     tip: "13 cyfr, ale checksum EAN-13 nie zgadza się",
   },
 };
