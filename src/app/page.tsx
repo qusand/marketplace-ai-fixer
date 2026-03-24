@@ -1,25 +1,44 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo, useCallback } from "react";
 import type { CleanProduct, RawProduct } from "@/lib/types";
 import { cleanProducts } from "@/lib/pipeline";
-import rawData from "@/data/partner_export_dirty.json";
+import defaultRawData from "@/data/partner_export_dirty.json";
 import { StatusCards } from "@/components/dashboard/status-cards";
 import { ProductTable } from "@/components/dashboard/product-table";
 import { ProductDetailSheet } from "@/components/dashboard/product-detail";
 import { BeforeAfter } from "@/components/dashboard/before-after";
+import { DropZone } from "@/components/dashboard/drop-zone";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
-import { DownloadIcon } from "lucide-react";
+import { DownloadIcon, RotateCcwIcon } from "lucide-react";
 
-const rawProducts = rawData as RawProduct[];
-const products = cleanProducts(rawProducts);
+const BUNDLED_RAW = defaultRawData as RawProduct[];
 
 export default function Home() {
+  const [rawProducts, setRawProducts] = useState<RawProduct[]>(BUNDLED_RAW);
+  const [customFile, setCustomFile] = useState<string | null>(null);
   const [selectedProduct, setSelectedProduct] = useState<CleanProduct | null>(
     null
   );
   const [exporting, setExporting] = useState<"xlsx" | "csv" | null>(null);
+
+  const products = useMemo(() => cleanProducts(rawProducts), [rawProducts]);
+
+  const handleFileAccepted = useCallback(
+    (data: RawProduct[], fileName: string) => {
+      setRawProducts(data);
+      setCustomFile(fileName);
+      setSelectedProduct(null);
+    },
+    []
+  );
+
+  const handleReset = useCallback(() => {
+    setRawProducts(BUNDLED_RAW);
+    setCustomFile(null);
+    setSelectedProduct(null);
+  }, []);
 
   const handleSelectProduct = (product: CleanProduct) => {
     setSelectedProduct(product);
@@ -40,7 +59,7 @@ export default function Home() {
       a.href = url;
       a.download = `marketplace_ai_fixer_export.${format}`;
       a.click();
-      URL.revokeObjectURL(url);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
     } catch (err) {
       console.error("Export error:", err);
     } finally {
@@ -69,11 +88,25 @@ export default function Home() {
             <p className="text-sm text-muted-foreground">
               Czyszczenie i normalizacja danych produktowych
               <span className="text-muted-foreground/50 ml-1.5">
-                · {products.length} rekordy przetworzone
+                · {products.length} {products.length === 1 ? "rekord" : products.length < 5 ? "rekordy" : "rekordów"} {products.length === 1 ? "przetworzony" : products.length < 5 ? "przetworzone" : "przetworzonych"}
               </span>
+              {customFile && (
+                <span className="text-primary/70 ml-1.5">· {customFile}</span>
+              )}
             </p>
           </div>
           <div className="flex items-center gap-2">
+            {customFile && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleReset}
+                className="text-xs h-8 gap-1.5 text-muted-foreground"
+              >
+                <RotateCcwIcon className="h-3.5 w-3.5" />
+                Reset
+              </Button>
+            )}
             <ModeToggle />
             <Button
               variant="outline"
@@ -96,6 +129,11 @@ export default function Home() {
             </Button>
           </div>
         </header>
+
+        {/* ── Drop Zone ── */}
+        <section className="mb-6">
+          <DropZone onFileAccepted={handleFileAccepted} />
+        </section>
 
         {/* ── Status Overview ── */}
         <section className="mb-8">
@@ -153,7 +191,7 @@ function SectionLabel({
 }) {
   return (
     <h2
-      className={`text-[11px] font-semibold uppercase tracking-[0.1em] text-muted-foreground/60 ${className ?? ""}`}
+      className={`text-xs font-medium uppercase tracking-widest text-muted-foreground ${className ?? ""}`}
     >
       {children}
     </h2>

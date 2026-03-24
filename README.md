@@ -17,7 +17,8 @@ Partnerskie eksporty produktów zawierają niespójne formaty cen (`59.90 PLN` v
 - **Walidacja EAN-13** z checksumą — jawne statusy zamiast cichego ukrywania problemów
 - **Generowanie tytułów Allegro** (max 75 znaków, zoptymalizowane pod SEO marketplace na bazie researchu rynkowego)
 - **Eksport do Excel** (.xlsx z formatowaniem warunkowym, auto-filter, frozen headers) i **CSV** (UTF-8 BOM, separator `;`)
-- **Profesjonalny dashboard** z widokiem przed/po, statusami jakości danych i panelem szczegółów
+- **Drag & drop** — wrzuć własny plik JSON i przetworz go tym samym pipeline'em
+- **Profesjonalny dashboard** z widokiem przed/po, statusami jakości danych i panelem szczegółów (Sheet slide-out)
 
 ## Tech Stack
 
@@ -56,7 +57,8 @@ src/
 │   ├── product-table.tsx           # Tabela produktów
 │   ├── status-cards.tsx            # Karty statusowe
 │   ├── status-badge.tsx            # Badge EAN/stan
-│   ├── product-detail.tsx          # Panel szczegółów
+│   ├── product-detail.tsx          # Panel szczegółów (Sheet)
+│   ├── drop-zone.tsx               # Drag & drop upload JSON
 │   └── before-after.tsx            # Porównanie przed/po
 ├── lib/
 │   ├── types.ts                    # TypeScript types
