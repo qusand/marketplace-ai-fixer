@@ -1,4 +1,5 @@
 import type { CleanProduct } from "@/lib/types";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   PackageIcon,
   ShieldCheckIcon,
@@ -94,25 +95,27 @@ function MetricCard({
   const styles = COLOR_STYLES[color];
 
   return (
-    <div className="rounded-lg border border-border/60 bg-card px-4 py-3.5">
-      <div className="flex items-center justify-between mb-2.5">
-        <p className="text-xs font-medium text-muted-foreground/70 tracking-wide">
-          {label}
-        </p>
-        <Icon className={`h-4 w-4 ${styles.icon}`} />
-      </div>
-      <div className="flex items-baseline gap-1.5">
-        <span
-          className={`text-2xl font-semibold tabular-nums leading-none ${styles.value}`}
-        >
-          {value}
-        </span>
-        {total !== undefined && (
-          <span className="text-sm text-muted-foreground/40 tabular-nums">
-            / {total}
+    <Card size="sm" className="border-border/60">
+      <CardContent className="pt-0">
+        <div className="flex items-center justify-between mb-2.5">
+          <p className="text-xs font-medium text-muted-foreground/70 tracking-wide">
+            {label}
+          </p>
+          <Icon className={`h-4 w-4 ${styles.icon}`} />
+        </div>
+        <div className="flex items-baseline gap-1.5">
+          <span
+            className={`text-2xl font-semibold tabular-nums leading-none ${styles.value}`}
+          >
+            {value}
           </span>
-        )}
-      </div>
-    </div>
+          {total !== undefined && (
+            <span className="text-sm text-muted-foreground/40 tabular-nums">
+              / {total}
+            </span>
+          )}
+        </div>
+      </CardContent>
+    </Card>
   );
 }
