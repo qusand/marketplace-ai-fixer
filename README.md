@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Marketplace AI-Fixer
 
-## Getting Started
+Narzędzie do automatycznego czyszczenia i normalizacji brudnych danych produktowych z eksportów partnerskich.
 
-First, run the development server:
+## Live Demo
+
+[link do Vercel — zostanie dodany po deployu]
+
+## Problem
+
+Partnerskie eksporty produktów zawierają niespójne formaty cen (`59.90 PLN` vs `59,90`), opisy w surowym HTML/JSON, brakujące lub błędne kody EAN, skrótowe nazwy kolorów (`j. szary`, `beż`) i niestandaryzowane wymiary (`040*060cm`). Ręczne czyszczenie to godziny pracy i gwarancja błędów.
+
+## Rozwiązanie
+
+- **Automatyczna detekcja i czyszczenie 3 formatów opisów** (HTML, zagnieżdżony JSON, plain text)
+- **Normalizacja wymiarów** (`040*060cm` → `40 x 60 cm`), **kolorów** (`j. szary` → `jasnoszary`), **cen** (ujednolicony format)
+- **Walidacja EAN-13** z checksumą — jawne statusy zamiast cichego ukrywania problemów
+- **Generowanie tytułów Allegro** (max 75 znaków, zoptymalizowane pod SEO marketplace)
+- **Eksport do Excel** (.xlsx z formatowaniem warunkowym) i **CSV** (UTF-8 BOM, separator `;`)
+- **Profesjonalny dashboard** z widokiem przed/po, statusami jakości danych i panelem szczegółów
+
+## Tech Stack
+
+Next.js · Tailwind CSS · shadcn/ui · TypeScript · exceljs
+
+## Uruchomienie lokalne
 
 ```bash
+git clone [repo-url]
+cd marketplace-ai-fixer
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Otwórz [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Struktura projektu
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/
+│   ├── page.tsx                    # Dashboard główny
+│   ├── layout.tsx                  # Layout z metadata
+│   └── api/export/
+│       ├── xlsx/route.ts           # Eksport Excel
+│       └── csv/route.ts            # Eksport CSV
+├── components/dashboard/
+│   ├── product-table.tsx           # Tabela produktów
+│   ├── status-cards.tsx            # Karty statusowe
+│   ├── status-badge.tsx            # Badge EAN/stan
+│   ├── product-detail.tsx          # Panel szczegółów
+│   └── before-after.tsx            # Porównanie przed/po
+├── lib/
+│   ├── types.ts                    # TypeScript types
+│   ├── pipeline.ts                 # Pipeline czyszczenia + tytuły Allegro
+│   ├── parsers.ts                  # Parsery: opis, wymiary, kolor, cena, stan
+│   └── validators.ts              # Walidacja EAN-13
+└── data/
+    └── partner_export_dirty.json   # Dane wejściowe
+```
 
-## Learn More
+## Czyszczenie danych — co narzędzie robi
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Problem w danych | Rozwiązanie |
+|---|---|
+| Skrótowe kolory (`j. szary`, `beż`) | Mapowanie na pełne nazwy (`jasnoszary`, `beżowy`) |
+| Wymiary z gwiazdkami (`040*060cm`) | Normalizacja (`40 x 60 cm`) |
+| 3 formaty opisów (HTML, JSON, plain) | Auto-detekcja + ekstrakcja czystego tekstu |
+| Niespójne ceny (`59,90` vs `59.90 PLN`) | Ujednolicony format z walutą |
+| Mieszane stany (`15`, `"dużo"`, `0`) | Klasyfikacja: exact / non_exact / empty |
+| Błędne EAN-y (`""`, `"BŁĄD_ODCZYTU"`) | Walidacja checksum EAN-13 ze statusem |
