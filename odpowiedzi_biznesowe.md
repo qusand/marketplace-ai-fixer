@@ -157,7 +157,7 @@ Kopiowanie 1:1 nie skaluje się. Każdy nowy marketplace (bol.com, Kaufland, OTT
 > Deep work (zadanie 3) wymaga ~3h skupienia. Jeśli rozbiorę go na kawałki, stracę czas na context switching. Najlepiej go zrobić po zamknięciu zadań "z deadline'em" — wtedy mam czysty umysł.
 >
 > **Krok 4 — Quick win na start**
-> Zamiast od razu wskakiwać w wycenę, wysyłam 2-minutowy ack do Klienta A: "Widzę, ogarniam, dam znać do południa". Koszt: 2 minuty. Wartość: klient nie czuje się ignorowany. To zmienia jego percepcję z "nikt się tym nie zajmuje" na "jest pod kontrolą".
+> Zamiast od razu wskakiwać w wycenę, wysyłam 2-minutowy response do Klienta A: "Widzę, ogarniam, dam znać do południa". Koszt: 2 minuty. Wartość: klient nie czuje się ignorowany. To zmienia jego percepcję z "nikt się tym nie zajmuje" na "jest pod kontrolą".
 >
 > **Krok 5 — Fallback plan**
 > Co jeśli bug u Klienta A okaże się krytyczny? Wtedy repriorytyzuję: naprawiam buga, deep work Amazon przesuwam na jutro rano. Deadline środa daje margines jednego dnia. Bez fallbacku plan jest kruchy.
@@ -172,7 +172,7 @@ Kopiowanie 1:1 nie skaluje się. Każdy nowy marketplace (bol.com, Kaufland, OTT
 | **4.** | 2 — Case study dla CEO | Termin jutro rano. Struktura case study jest powtarzalna (problem → rozwiązanie → wynik → następne kroki), ~45 min pracy szablonowej |
 | **5.** | 5 — Literówka | Zero wpływu biznesowego, wrzucam jak zostanie czas |
 
-**Niuans:** Zanim zacznę wycenę, w pierwszych 5 minutach wyślę Klientowi A szybki ack: "Widzę zgłoszenie, triage robię dziś rano, wrócę z ETA" — żeby nie wisiał bez odpowiedzi.
+**Niuans:** Zanim zacznę wycenę, w pierwszych 5 minutach wyślę Klientowi A szybki response: "Widzę zgłoszenie, triage robię dziś rano, wrócę z ETA" — żeby nie wisiał bez odpowiedzi.
 
 **Fallback:** Jeśli triage bugu u Klienta A pokaże, że problem jest krytyczny (np. blokuje sprzedaż), repriorytyzuję: naprawiam bug, a deep work Amazon przesuwam na jutro rano — deadline środa daje margines.
 
