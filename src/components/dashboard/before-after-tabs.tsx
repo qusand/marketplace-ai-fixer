@@ -27,7 +27,7 @@ export function BeforeAfterTabs({ products, rawProducts }: Props) {
 
   return (
     <Tabs defaultValue="after" className="w-full">
-      <TabsList className="h-8 w-full sm:w-auto overflow-x-auto">
+      <TabsList className="h-8 w-full sm:w-auto overflow-x-auto scrollbar-none">
         <TabsTrigger value="after" className="text-[11px] sm:text-xs px-2 sm:px-3 h-7">
           Po czyszczeniu
         </TabsTrigger>

@@ -130,6 +130,15 @@
   }
 }
 
+/* Hide scrollbar but keep scroll functionality */
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
 /*
  * Smooth theme transition (from rekrutacja).
  * 350ms ease on key elements for comfortable light/dark switch.
