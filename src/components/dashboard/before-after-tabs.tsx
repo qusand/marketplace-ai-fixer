@@ -42,10 +42,12 @@ export function BeforeAfterTabs({ products, rawProducts }: Props) {
         </TabsTrigger>
       </TabsList>
 
-      <TabsContent value="after" className="mt-3">
+      {/* Fixed-height wrapper prevents layout shift between tabs */}
+      <div className="mt-3 min-h-[280px]">
+      <TabsContent value="after" className="mt-0">
         <div className="rounded-lg border border-border/50 overflow-hidden">
           <div className="overflow-x-auto">
-            <Table>
+            <Table className="table-fixed w-full">
               <TableHeader>
                 <TableRow className="bg-muted/30 hover:bg-muted/30">
                   <TableHead className="text-xs font-semibold uppercase tracking-wider">SKU</TableHead>
@@ -73,10 +75,10 @@ export function BeforeAfterTabs({ products, rawProducts }: Props) {
         </div>
       </TabsContent>
 
-      <TabsContent value="before" className="mt-3">
+      <TabsContent value="before" className="mt-0">
         <div className="rounded-lg border border-border/50 overflow-hidden">
           <div className="overflow-x-auto">
-            <Table>
+            <Table className="table-fixed w-full">
               <TableHeader>
                 <TableRow className="bg-muted/30 hover:bg-muted/30">
                   <TableHead className="text-xs font-semibold uppercase tracking-wider">SKU</TableHead>
@@ -104,7 +106,7 @@ export function BeforeAfterTabs({ products, rawProducts }: Props) {
         </div>
       </TabsContent>
 
-      <TabsContent value="compare" className="mt-3">
+      <TabsContent value="compare" className="mt-0">
         <div className="space-y-3">
           {products.map((p, i) => {
             const raw = rawProducts[i];
@@ -145,9 +147,10 @@ export function BeforeAfterTabs({ products, rawProducts }: Props) {
         </div>
       </TabsContent>
 
-      <TabsContent value="changelog" className="mt-3">
+      <TabsContent value="changelog" className="mt-0">
         <ChangeHistory entries={changelog} />
       </TabsContent>
+      </div>
     </Tabs>
   );
 }

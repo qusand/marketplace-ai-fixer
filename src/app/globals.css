@@ -126,6 +126,7 @@
   }
   html {
     @apply font-sans;
+    overflow-y: scroll; /* Prevent layout shift when scrollbar appears/disappears */
   }
 }
 
