@@ -9,6 +9,7 @@ import { ProductTable } from "@/components/dashboard/product-table";
 import { ProductDetail } from "@/components/dashboard/product-detail";
 import { BeforeAfter } from "@/components/dashboard/before-after";
 import { Button } from "@/components/ui/button";
+import { ModeToggle } from "@/components/mode-toggle";
 import { DownloadIcon } from "lucide-react";
 
 const rawProducts = rawData as RawProduct[];
@@ -75,6 +76,7 @@ export default function Home() {
             </p>
           </div>
           <div className="flex items-center gap-2">
+            <ModeToggle />
             <Button
               variant="outline"
               size="sm"
