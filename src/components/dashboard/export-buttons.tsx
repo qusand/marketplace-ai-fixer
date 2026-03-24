@@ -129,17 +129,18 @@ export function ExportButtons({ products }: Props) {
   }
 
   return (
-    <div className="flex items-center gap-2">
-      <Button variant="default" size="sm" onClick={handleXlsx} disabled={loading} className="h-8 text-xs">
-        <Download className="w-3.5 h-3.5 mr-1.5" />
-        {loading ? "Generowanie…" : "Pobierz Excel"}
+    <div className="flex items-center gap-1.5 sm:gap-2">
+      <Button variant="default" size="sm" onClick={handleXlsx} disabled={loading} className="h-7 sm:h-8 text-[11px] sm:text-xs px-2 sm:px-3">
+        <Download className="w-3 h-3 sm:w-3.5 sm:h-3.5 mr-1 sm:mr-1.5" />
+        <span className="hidden sm:inline">{loading ? "Generowanie…" : "Pobierz Excel"}</span>
+        <span className="sm:hidden">{loading ? "…" : "Excel"}</span>
       </Button>
-      <Button variant="outline" size="sm" onClick={handleCsv} className="h-8 text-xs">
-        <Download className="w-3.5 h-3.5 mr-1.5" />
+      <Button variant="outline" size="sm" onClick={handleCsv} className="h-7 sm:h-8 text-[11px] sm:text-xs px-2 sm:px-3">
+        <Download className="w-3 h-3 sm:w-3.5 sm:h-3.5 mr-1 sm:mr-1.5" />
         CSV
       </Button>
-      <Button variant="outline" size="sm" onClick={handleJson} className="h-8 text-xs">
-        <Download className="w-3.5 h-3.5 mr-1.5" />
+      <Button variant="outline" size="sm" onClick={handleJson} className="h-7 sm:h-8 text-[11px] sm:text-xs px-2 sm:px-3">
+        <Download className="w-3 h-3 sm:w-3.5 sm:h-3.5 mr-1 sm:mr-1.5" />
         JSON
       </Button>
     </div>

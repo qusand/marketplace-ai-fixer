@@ -26,25 +26,25 @@ export function ProductTable({ products, rawProducts }: Props) {
   return (
     <div className="rounded-lg border border-border/50 overflow-hidden">
       <div className="overflow-x-auto">
-        <Table>
+        <Table className="min-w-[700px]">
           <TableHeader>
             <TableRow className="bg-muted/30 hover:bg-muted/30">
-              <TableHead className="text-xs font-semibold uppercase tracking-wider w-[140px]">
+              <TableHead className="text-xs font-semibold uppercase tracking-wider w-[130px] sm:w-[140px]">
                 SKU
               </TableHead>
-              <TableHead className="text-xs font-semibold uppercase tracking-wider w-[120px]">
+              <TableHead className="text-xs font-semibold uppercase tracking-wider w-[100px] sm:w-[120px]">
                 Kolor
               </TableHead>
-              <TableHead className="text-xs font-semibold uppercase tracking-wider w-[120px]">
+              <TableHead className="text-xs font-semibold uppercase tracking-wider w-[100px] sm:w-[120px]">
                 Wymiary
               </TableHead>
-              <TableHead className="text-xs font-semibold uppercase tracking-wider w-[90px] text-right">
+              <TableHead className="text-xs font-semibold uppercase tracking-wider w-[80px] sm:w-[90px] text-right">
                 Cena
               </TableHead>
-              <TableHead className="text-xs font-semibold uppercase tracking-wider w-[110px] text-center">
+              <TableHead className="text-xs font-semibold uppercase tracking-wider w-[90px] sm:w-[110px] text-center">
                 Stan
               </TableHead>
-              <TableHead className="text-xs font-semibold uppercase tracking-wider w-[100px] text-center">
+              <TableHead className="text-xs font-semibold uppercase tracking-wider w-[90px] sm:w-[100px] text-center">
                 EAN
               </TableHead>
               <TableHead className="text-xs font-semibold uppercase tracking-wider">
@@ -67,17 +67,17 @@ export function ProductTable({ products, rawProducts }: Props) {
                   <TableCell className="font-mono text-xs font-medium">
                     <div className="flex items-center gap-1.5">
                       <ChevronDown
-                        className={`h-3.5 w-3.5 text-muted-foreground transition-transform duration-200 ${
+                        className={`h-3.5 w-3.5 shrink-0 text-muted-foreground transition-transform duration-200 ${
                           isExpanded ? "rotate-180" : ""
                         }`}
                       />
-                      {product.sku}
+                      <span className="truncate">{product.sku}</span>
                     </div>
                   </TableCell>
-                  <TableCell className="text-sm">
+                  <TableCell className="text-sm truncate">
                     {product.kolor ?? "—"}
                   </TableCell>
-                  <TableCell className="text-sm tabular-nums">
+                  <TableCell className="text-sm tabular-nums truncate">
                     {product.wymiary_display ?? "—"}
                   </TableCell>
                   <TableCell className="text-sm text-right tabular-nums">
@@ -94,7 +94,7 @@ export function ProductTable({ products, rawProducts }: Props) {
                   <TableCell className="text-center">
                     <EanBadge status={product.ean_status} />
                   </TableCell>
-                  <TableCell className="text-sm max-w-[300px]">
+                  <TableCell className="text-sm max-w-[200px] sm:max-w-[300px]">
                     <div className="truncate" title={product.tytul_allegro}>
                       {product.tytul_allegro}
                     </div>

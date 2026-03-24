@@ -27,18 +27,20 @@ export function BeforeAfterTabs({ products, rawProducts }: Props) {
 
   return (
     <Tabs defaultValue="after" className="w-full">
-      <TabsList className="h-8">
-        <TabsTrigger value="after" className="text-xs px-3 h-7">
+      <TabsList className="h-8 w-full sm:w-auto overflow-x-auto">
+        <TabsTrigger value="after" className="text-[11px] sm:text-xs px-2 sm:px-3 h-7">
           Po czyszczeniu
         </TabsTrigger>
-        <TabsTrigger value="before" className="text-xs px-3 h-7">
+        <TabsTrigger value="before" className="text-[11px] sm:text-xs px-2 sm:px-3 h-7">
           Dane surowe
         </TabsTrigger>
-        <TabsTrigger value="compare" className="text-xs px-3 h-7">
+        <TabsTrigger value="compare" className="text-[11px] sm:text-xs px-2 sm:px-3 h-7">
           Porównanie
         </TabsTrigger>
-        <TabsTrigger value="changelog" className="text-xs px-3 h-7">
-          Historia zmian ({totalChanges})
+        <TabsTrigger value="changelog" className="text-[11px] sm:text-xs px-2 sm:px-3 h-7">
+          <span className="hidden sm:inline">Historia zmian</span>
+          <span className="sm:hidden">Historia</span>
+          {" "}({totalChanges})
         </TabsTrigger>
       </TabsList>
 
@@ -47,7 +49,7 @@ export function BeforeAfterTabs({ products, rawProducts }: Props) {
         <TabsContent value="after" className="mt-0">
           <div className="rounded-lg border border-border/50 overflow-hidden">
             <div className="overflow-x-auto">
-              <Table className="table-fixed w-full">
+              <Table className="table-fixed w-full min-w-[600px]">
                 <colgroup>
                   <col className="w-[14%]" />
                   <col className="w-[12%]" />
@@ -83,7 +85,7 @@ export function BeforeAfterTabs({ products, rawProducts }: Props) {
         <TabsContent value="before" className="mt-0">
           <div className="rounded-lg border border-border/50 overflow-hidden">
             <div className="overflow-x-auto">
-              <Table className="table-fixed w-full">
+              <Table className="table-fixed w-full min-w-[600px]">
                 <colgroup>
                   <col className="w-[14%]" />
                   <col className="w-[24%]" />
@@ -128,7 +130,7 @@ export function BeforeAfterTabs({ products, rawProducts }: Props) {
                   <p className="font-mono text-xs font-semibold mb-3">
                     {p.sku}
                   </p>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
                     {[
                       { label: "Nazwa", before: raw["NAZWA ORG"], after: `${p.kolor ?? ""} | ${p.wymiary_display ?? ""}` },
                       { label: "Cena", before: raw.Cena, after: p.cena_wartosc ? `${p.cena_wartosc} PLN` : "—" },

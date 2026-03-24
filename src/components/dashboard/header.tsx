@@ -56,32 +56,45 @@ export function Header({ products, onDataUpdate }: Props) {
       onDragLeave={() => { dragCounter.current--; if (dragCounter.current === 0) setIsDragOver(false); }}
       onDrop={(e) => { dragCounter.current = 0; handleDrop(e); }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-lg font-semibold tracking-tight">
-              Marketplace AI-Fixer
-            </h1>
-            <p className="text-xs text-muted-foreground mt-0.5">
-              Czyszczenie i normalizacja danych produktowych
-            </p>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
+        {/* Mobile: stack, Desktop: row */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          {/* Title + drag hint */}
+          <div className="flex items-center justify-between sm:justify-start sm:gap-6">
+            <div>
+              <h1 className="text-base sm:text-lg font-semibold tracking-tight">
+                Marketplace AI-Fixer
+              </h1>
+              <p className="text-[11px] text-muted-foreground mt-0.5">
+                Czyszczenie i normalizacja danych produktowych
+              </p>
+            </div>
+
+            {/* Theme toggle — visible on mobile next to title */}
+            <div className="sm:hidden">
+              <ThemeToggle />
+            </div>
           </div>
 
+          {/* Drag hint — hidden on mobile (no drag on touch) */}
           {isDragOver ? (
-            <div className="flex items-center gap-2 text-primary">
+            <div className="hidden sm:flex items-center gap-2 text-primary">
               <Upload className="h-5 w-5" />
               <span className="text-sm font-medium">Upuść plik JSON</span>
             </div>
           ) : (
-            <div className="flex items-center gap-2 text-muted-foreground/50">
+            <div className="hidden sm:flex items-center gap-2 text-muted-foreground/50">
               <Upload className="h-3.5 w-3.5" />
-              <span className="text-[11px] hidden sm:inline">lub przeciągnij plik JSON</span>
+              <span className="text-[11px]">lub przeciągnij plik JSON</span>
             </div>
           )}
 
+          {/* Actions: export + theme */}
           <div className="flex items-center gap-2">
-            <ThemeToggle />
             <ExportButtons products={products} />
+            <div className="hidden sm:block">
+              <ThemeToggle />
+            </div>
           </div>
         </div>
 

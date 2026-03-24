@@ -23,7 +23,7 @@ function DetailRow({
   children: React.ReactNode;
 }) {
   return (
-    <div className="grid grid-cols-[130px_1fr] gap-3 py-2.5 border-b border-border/30 last:border-0">
+    <div className="grid grid-cols-1 sm:grid-cols-[130px_1fr] gap-1 sm:gap-3 py-2.5 border-b border-border/30 last:border-0">
       <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider pt-0.5">
         {label}
       </span>
@@ -77,7 +77,7 @@ export function ProductDetailExpanded({
 
   return (
     <div className="bg-muted/20 border-t border-border/30 animate-in slide-in-from-top-2 fade-in duration-200">
-      <div className="px-6 py-5">
+      <div className="px-3 sm:px-6 py-4 sm:py-5">
         {/* Header */}
         <div className="flex items-start justify-between mb-4">
           <div>
