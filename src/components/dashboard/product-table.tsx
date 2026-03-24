@@ -50,7 +50,7 @@ export function ProductTable({
                   }`}
                   onClick={() => onSelectProduct(product)}
                 >
-                  <TableCell className="font-mono text-[13px] font-medium pl-4 py-3.5 text-foreground">
+                  <TableCell className="font-mono text-[13px] font-medium pl-4 py-3.5">
                     {product.sku}
                   </TableCell>
                   <TableCell className="text-[13px] capitalize text-foreground/90">

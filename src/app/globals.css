@@ -131,16 +131,34 @@
   }
 }
 
-/* Smooth theme transition — applied globally when switching */
-html:not(.no-transition),
-html:not(.no-transition) *,
-html:not(.no-transition) *::before,
-html:not(.no-transition) *::after {
+/*
+ * Smooth theme transition.
+ * We use a custom property so the transition duration is non-zero only
+ * while the theme is switching, avoiding interference with hover/focus
+ * transitions during normal interaction.
+ */
+html {
+  --theme-transition: 350ms;
+}
+
+body,
+main,
+header,
+footer,
+section,
+nav,
+div,
+span,
+p,
+h1, h2, h3, h4,
+a,
+table, thead, tbody, tr, th, td,
+pre, code,
+button {
   transition:
-    background-color 300ms ease,
-    border-color 300ms ease,
-    color 300ms ease,
-    fill 300ms ease,
-    stroke 300ms ease,
-    box-shadow 300ms ease !important;
+    background-color var(--theme-transition) ease,
+    border-color var(--theme-transition) ease,
+    color var(--theme-transition) ease,
+    fill var(--theme-transition) ease,
+    box-shadow var(--theme-transition) ease;
 }
