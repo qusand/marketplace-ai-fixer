@@ -6,7 +6,7 @@ import { cleanProducts } from "@/lib/pipeline";
 import defaultRawData from "@/data/partner_export_dirty.json";
 import { StatusCards } from "@/components/dashboard/status-cards";
 import { ProductTable } from "@/components/dashboard/product-table";
-import { ProductDetailSheet } from "@/components/dashboard/product-detail";
+import { ProductDetail } from "@/components/dashboard/product-detail";
 import { BeforeAfter } from "@/components/dashboard/before-after";
 import { DropZone } from "@/components/dashboard/drop-zone";
 import { Button } from "@/components/ui/button";
@@ -41,7 +41,9 @@ export default function Home() {
   }, []);
 
   const handleSelectProduct = (product: CleanProduct) => {
-    setSelectedProduct(product);
+    setSelectedProduct((prev) =>
+      prev?.sku === product.sku ? null : product
+    );
   };
 
   const handleExport = async (format: "xlsx" | "csv") => {
@@ -155,15 +157,16 @@ export default function Home() {
           />
         </section>
 
-        {/* ── Product Detail Sheet (slide-out) ── */}
-        <ProductDetailSheet
-          product={selectedProduct}
-          rawProduct={selectedRaw}
-          open={selectedProduct !== null}
-          onOpenChange={(open) => {
-            if (!open) setSelectedProduct(null);
-          }}
-        />
+        {/* ── Inline Detail (expands below table) ── */}
+        {selectedProduct && (
+          <section className="mt-4">
+            <ProductDetail
+              product={selectedProduct}
+              rawProduct={selectedRaw}
+              onClose={() => setSelectedProduct(null)}
+            />
+          </section>
+        )}
 
         {/* ── Before / After ── */}
         <section className="mt-10">
