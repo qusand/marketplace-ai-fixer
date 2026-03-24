@@ -6,37 +6,33 @@
 
 ### Tok myślenia
 
-> Zanim napiszę maila, muszę rozstrzygnąć napięcie: klient ma pilny problem, ale formalnie nie mamy mandatu do interwencji.
+> Klient ma problem, jest zły, traci pieniądze. Ale formalnie nie mamy umowy na wsparcie.
 >
-> **Krok 1 — Co jest ważniejsze: relacja czy formalność?**
-> Relacja. Klient w panice nie chce usłyszeć "sprawdźcie umowę". Ale też nie mogę pracować za darmo — to ustawia zły precedens. Szukam złotego środka: daję natychmiastową wartość (quick win), jednocześnie uczciwie komunikuję sytuację kontraktową.
+> **Co jest ważniejsze — relacja czy formalność?**
+> Relacja. Ale nie mogę pracować za darmo — to zły precedens. Szukam środka: daję mu coś wartościowego od razu (quick win), a jednocześnie uczciwie mówię o sytuacji kontraktowej.
 >
-> **Krok 2 — Jaki quick win mogę dać od razu?**
-> Wskazanie API Health w Seller Central to coś, co klient może zrobić sam w 2 minuty. Jeśli to throttling, problem się rozwiąże bez mojej interwencji. Zyskuję wdzięczność przy zerowym koszcie własnym.
+> **Co mogę dać od razu?**
+> Wskazówkę, którą sam może sprawdzić w 2 minuty (API Health w Seller Central). Jeśli to throttling — problem zniknie sam. Ja nic nie tracę, a klient dostaje pomoc.
 >
-> **Krok 3 — Jak zakotwiczyć rozmowę o Managed Service?**
-> Nie sprzedażowo ("kup nasz pakiet"), tylko przez kontrast: "w ramach MS ten problem zostałby wykryty automatycznie, zanim zdążylibyście go zauważyć". Pokazuję wartość, nie narzucam.
->
-> **Krok 4 — Ton maila?**
-> Konkretny, bez korporacyjnego bełkotu. Pierwszy akapit = "rozumiem problem". Środek = "oto co możesz zrobić teraz". Koniec = "oto opcje dalej". Zero zbędnych zdań.
+> **Jak zaproponować Managed Service bez wciskania?**
+> Przez kontrast: "z MS ten problem wykrylibyśmy zanim go zauważycie". Pokazuję wartość, nie sprzedaję.
 
 **Temat: Pilne — aktualizacja cen Amazon, plan działania**
 
 Panie [Imię],
 
-Widzę problem z synchronizacją cen na Amazonie — rozumiem, że każda godzina bez aktualizacji to realna strata na sprzedaży i priorytetem jest jak najszybsze przywrócenie działania.
+Widzę problem z cenami na Amazonie — rozumiem, że każda godzina bez aktualizacji to realna strata.
 
-Po wstępnej analizie wygląda to na throttling po stronie Amazon API, prawdopodobnie związany z limitem requestów. Niezależnie od dalszych ustaleń, na start jedno: sprawdźcie w panelu Seller Central zakładkę *API Health* — jeśli widzicie status "Throttled", reset limitu zwykle następuje w ciągu 15 minut. Jeśli to nie pomoże, potrzebna będzie głębsza diagnoza.
+Na szybko: sprawdźcie w Seller Central zakładkę *API Health* — jeśli status to "Throttled", reset limitu nastąpi w ciągu 15 minut. Jeśli to nie pomoże, potrzebna będzie głębsza diagnoza.
 
-Muszę być transparentny: okres wsparcia w ramach wdrożenia zakończył się dwa miesiące temu, a projekt nie jest objęty abonamentem Managed Service, więc formalnie nie mamy aktywnego mandatu do interwencji.
+Muszę być szczery: wsparcie w ramach wdrożenia skończyło się dwa miesiące temu i nie macie aktywnego abonamentu, więc formalnie nie mamy mandatu do interwencji.
 
-Żeby nie tracić czasu, proponuję dwie ścieżki:
+Żeby nie tracić czasu, dwie opcje:
 
-1. **Interwencja awaryjna (jednorazowa)** — diagnoza i naprawa w trybie priorytetowym. Wycenę prześlę w ciągu godziny po potwierdzeniu zlecenia.
+1. **Jednorazowa naprawa** — diagnoza i fix w trybie priorytetowym. Wycenę wyślę w ciągu godziny.
+2. **Stała opieka (Managed Service)** — monitoring + reakcja na incydenty. Z MS ten problem wykrylibyśmy automatycznie, zanim zdążylibyście go zauważyć.
 
-2. **Managed Service (rekomendacja na przyszłość)** — miesięczny abonament obejmujący monitoring, reakcję na incydenty i proaktywną optymalizację. Dla kontekstu: w ramach MS taki incydent zostałby wykryty automatycznie przez monitoring, zanim zdążylibyście go zauważyć — a reakcja nastąpiłaby bez konieczności pisania maili.
-
-Proszę o krótką informację, którą ścieżką idziemy — mogę zacząć jeszcze dziś.
+Dajcie znać którą drogą idziemy — mogę zacząć dziś.
 
 Pozdrawiam,
 [Imię]
@@ -47,30 +43,24 @@ Pozdrawiam,
 
 ### Tok myślenia
 
-> Klient chce kopiować opisy 1:1 z Allegro na eMAG. Muszę go przekonać, że to zły pomysł — ale nie mogę powiedzieć "nie, bo nie". Potrzebuję argumentów, które trafiają w **pieniądze**, nie w technikalia.
+> Klient chce kopiować opisy 1:1. Muszę go przekonać że to zły pomysł — ale nie technicznie ("algorytm", "SEO"), tylko w języku pieniędzy.
 >
-> **Krok 1 — Dlaczego klient to proponuje?**
-> Bo wydaje mu się że to najtańsza i najszybsza opcja. Muszę rozbić te dwa przekonania: (a) to nie jest tańsze, bo rework kosztuje więcej, (b) to nie jest szybsze, bo produkty będą niewidoczne.
+> **Dlaczego klient to proponuje?**
+> Bo myśli że to najtańsze i najszybsze. Muszę pokazać: (a) to nie jest tańsze, bo poprawki kosztują więcej, (b) to nie jest szybsze, bo produkty będą niewidoczne.
 >
-> **Krok 2 — Jakie argumenty zadziałają?**
-> Klient nie jest techniczny. "SEO", "algorytm rankingowy", "tokenizacja" — to szum. Muszę mówić językiem: "tracisz pieniądze", "płacisz dwa razy", "konkurencja Cię wyprzedza". Konkrety > abstrakcje.
->
-> **Krok 3 — Ile argumentów?**
-> Trzy. Jeden = za mało, wygląda na opinię. Pięć = za dużo, gubi się przekaz. Trzy = wzorzec "problem → koszt → alternatywa" powtórzony trzy razy, każdy z innego kąta.
->
-> **Krok 4 — Kolejność argumentów?**
-> Zaczynam od największego bólu (utracony przychód — coś czego klient nawet nie widzi), potem koszt reworku (coś co poczuje za miesiąc), potem skalowalność (strategia na przyszłość). Od pilnego do strategicznego.
+> **Jakie argumenty zadziałają?**
+> Trzy, z trzech różnych stron: utracony przychód (coś czego klient nie widzi), koszt poprawek (coś co poczuje za miesiąc), skalowalność (strategia na przyszłość).
 
-### 3 argumenty biznesowe za adaptacją AI zamiast kopiowania 1:1
+### 3 argumenty za adaptacją AI zamiast kopiowania 1:1
 
-**Argument 1: Utracony przychód z niskiej widoczności**
-eMAG ma własny algorytm rankingowy. Opisy skopiowane 1:1 z Allegro nie trafiają w jego wymagania — produkty lądują nisko w wynikach lub poza nimi. Innymi słowy — wydajecie budżet na obecność na eMAG, ale klienci Was nie widzą. Produkty poza top 20 wyników tracą ~80% kliknięć — to koszt alternatywny, którego nie widać w raporcie. Adaptacja AI to różnica między "jesteś na eMAG" a "sprzedajesz na eMAG". Większość konkurentów kopiuje 1:1 — kto adaptuje, ten wygrywa widoczność.
+**1. Tracicie pieniądze na niewidoczność**
+eMAG ma własne zasady sortowania wyników. Opisy z Allegro nie pasują do tych zasad — produkty lądują na dole wyników albo poza nimi. Płacicie za obecność na eMAG, ale klienci Was po prostu nie widzą. Produkty poza top 20 wyników tracą ~80% kliknięć. Adaptacja AI to różnica między "jesteś na eMAG" a "sprzedajesz na eMAG".
 
-**Argument 2: Koszt reworku jest wyższy niż koszt adaptacji**
-Tania ścieżka prawie zawsze kończy się poprawkami po publikacji: ręczne edycje, reklamacje, kolejne iteracje. Zespół płaci dwa razy — raz za kopiowanie, drugi raz za ratowanie jakości. Przy katalogu 500 SKU, rework po kopiowaniu 1:1 to ~2–3 dni robocze operatora. Jednorazowa adaptacja AI kosztuje mniej niż powtarzany rework — i daje wynik od razu gotowy do publikacji.
+**2. Poprawki po fakcie kosztują więcej niż zrobienie tego dobrze od razu**
+Kopiowanie 1:1 prawie zawsze kończy się poprawkami: ręczne edycje, reklamacje, kolejne iteracje. Płacicie dwa razy — raz za kopiowanie, drugi raz za ratowanie jakości. Przy 500 produktach to 2–3 dni pracy operatora na poprawki. Adaptacja AI jest tańsza niż powtarzany rework.
 
-**Argument 3: Skalowalność na przyszłość**
-Kopiowanie 1:1 nie skaluje się. Każdy nowy marketplace (bol.com, Kaufland, OTTO) ma inne wymagania. Proces adaptacji AI buduje powtarzalny model: dzisiaj eMAG, jutro kolejne kanały bez gaszenia pożarów od zera. Klient kupuje nie opis — kupuje przewidywalność.
+**3. Następny marketplace = ten sam problem od zera**
+Kopiowanie nie skaluje się. Każdy nowy marketplace (bol.com, Kaufland, OTTO) ma inne wymagania. Adaptacja AI buduje powtarzalny proces: dziś eMAG, jutro kolejne kanały — bez gaszenia pożarów od nowa.
 
 ---
 
@@ -78,61 +68,53 @@ Kopiowanie 1:1 nie skaluje się. Każdy nowy marketplace (bol.com, Kaufland, OTT
 
 ### Tok myślenia
 
-> Piątek, 17:00, błąd marży, CEO nie odbiera. To jest klasyczny stress test — nie na wiedzę techniczną, tylko na to jak podejmuję decyzje pod presją i bez pełnej informacji.
+> Piątek, 16:30, błąd marży, CEO nie odbiera. To test na podejmowanie decyzji pod presją.
 >
-> **Krok 1 — Jaki jest mój najgorszy scenariusz?**
-> Zostawiam system włączony → przez weekend sprzedajemy ze stratą → w poniedziałek jest 200 zamówień po złej cenie → firma traci kilkadziesiąt tysięcy. To jest nieodwracalne.
+> **Jaki jest najgorszy scenariusz jeśli nic nie zrobię?**
+> Przez weekend sprzedajemy ze stratą. W poniedziałek 200 zamówień po złej cenie. Strata nieznana i rosnąca z każdą minutą. Nieodwracalne.
 >
-> **Krok 2 — Jaki jest drugi najgorszy scenariusz?**
-> Wyłączam system → tracimy weekend sprzedaży → w poniedziałek CEO pyta "dlaczego wyłączyłeś?" → ale straty są znane, ograniczone i odwracalne (można wznowić sprzedaż natychmiast).
+> **Jaki jest najgorszy scenariusz jeśli wyłączę?**
+> Zero sprzedaży w weekend. Strata znana i ograniczona. Odwracalne (włączam z powrotem w poniedziałek).
 >
-> **Krok 3 — Asymetria ryzyka**
-> Strata z kontynuowania = nieznana i rosnąca (każde kolejne zamówienie to kolejna strata).
-> Strata z wstrzymania = znana i ograniczona (utracona sprzedaż za weekend).
-> → Przy nierównych ryzykach zawsze wybieram opcję z ograniczoną, znaną stratą.
+> **Który scenariusz jest gorszy?**
+> Pierwszy. Przy nierównych ryzykach zawsze wybieram opcję z mniejszą, znaną stratą.
 >
-> **Krok 4 — Ale co jeśli problem jest mały?**
-> Dlatego potrzebuję progów. Nie wyłączam wszystkiego od razu — najpierw diagnozuję skalę. Jeśli <10 SKU i marża nadal dodatnia, mogę poczekać 30 minut na kontakt z zarządem. Jeśli ≥50 SKU lub ≥10% odchyłki — nie czekam.
+> **Ale co jeśli problem jest mały?**
+> Dlatego najpierw sprawdzam skalę. Mała skala = czekam na zarząd. Duża skala = działam sam.
 >
-> **Krok 5 — Dokumentacja**
-> Niezależnie od decyzji, muszę mieć dowody: logi, screenshoty, lista zamówień, timeline. Bo w poniedziałek ktoś zapyta "co się stało i kiedy". Jeśli tego nie zabezpieczę teraz, rekonstrukcja z pamięci będzie niepełna.
->
-> **Krok 6 — Dlaczego "domyślna akcja = wstrzymanie"?**
-> Bo w sytuacji niepewności, błąd po stronie ostrożności kosztuje mniej niż błąd po stronie działania. Łatwiej wytłumaczyć "wstrzymałem, bo nie miałem pewności" niż "kontynuowałem, mimo że wiedziałem o problemie".
+> **Zasada:** W sytuacji niepewności, lepiej wytłumaczyć "wstrzymałem, bo nie miałem pewności" niż "kontynuowałem, mimo że wiedziałem o problemie".
 
 **Decyzja: Wstrzymuję system cenowy — jeśli skala przekracza próg akceptowalnego ryzyka.**
 
-### Próg decyzyjny:
-- Odchyłka cenowa ≥ 10% LUB dotyczy ≥ 50 SKU → **wstrzymuję natychmiast**
-- 10–49 SKU i marża spadła, ale nadal dodatnia → **wstrzymuję moduł cenowy, ale nie całą sprzedaż** (izolacja)
-- < 10 SKU i marża nadal dodatnia → **monitoruję i czekam na kontakt zarządu** (max 30 min)
-- W razie wątpliwości → domyślna akcja to **wstrzymanie** (bezpieczniejsza strona błędu)
+### Kiedy co robię:
+- Odchyłka ≥ 10% LUB ≥ 50 produktów → **wyłączam natychmiast**
+- 10–49 produktów, marża spadła ale nadal dodatnia → **wyłączam moduł cenowy, reszta sprzedaży działa**
+- < 10 produktów, marża OK → **monitoruję i czekam na kontakt zarządu** (max 30 min)
+- Nie wiem co robić → **wyłączam** (bezpieczniejsza strona błędu)
 
-### Kroki w ciągu 15 minut:
+### Moje kroki w 15 minut:
 
-**Minuty 0–3: Rozpoznanie**
-- Potwierdzam skalę: ile produktów dotkniętych, jak duża różnica cenowa
-- Sprawdzam czy problem nadal aktywnie publikuje złe ceny
-- Zbieram listę dotkniętych SKU
-- Screenshot stanu systemu + export logów cenowych na moment incydentu (zabezpieczenie dowodowe)
+**Minuty 0–3: Sprawdzam co się dzieje**
+- Ile produktów dotkniętych? Jak duża różnica cenowa?
+- Czy system nadal publikuje złe ceny?
+- Zbieram listę dotkniętych produktów
+- Robię screenshoty i eksportuję logi (żeby mieć dowody)
 
-**Minuty 3–5: Eskalacja**
-- Telefon do CEO i COO (powtórzony dwukrotnie)
-- SMS + wiadomość na Slacku/Discordzie/mailu: "PILNE — błąd marży na [X] produktach, odchyłka [Y]%, podejmuję decyzję o wstrzymaniu systemu cenowego, oddzwońcie"
-- Notatka z godziną, skalą i hipotezą przyczyny
+**Minuty 3–5: Dzwonię i piszę**
+- Telefon do CEO i COO (dwa razy)
+- SMS + Slack/Discord/mail: "PILNE — błąd marży na [X] produktach, odchyłka [Y]%, podejmuję decyzję o wstrzymaniu, oddzwońcie"
 
-**Minuty 5–10: Decyzja**
-- Brak pewnej poprawki w krótkim czasie → wyłączam wadliwy proces cenowy (jeśli próg przekroczony)
-- Jeśli da się izolować tylko moduł cenowy bez zatrzymywania reszty sprzedaży — izoluję
+**Minuty 5–10: Podejmuję decyzję**
+- Jeśli próg przekroczony → wyłączam wadliwy moduł cenowy
+- Jeśli da się oddzielić moduł cenowy od reszty sprzedaży — oddzielam
 - Jeśli nie — wstrzymuję cały system
-- Przygotowuję listę zamówień złożonych po zaniżonych cenach do analizy prawno-operacyjnej
+- Przygotowuję listę zamówień po zaniżonych cenach
 
-**Minuty 10–15: Zabezpieczenie**
-- Wykonuję wybraną akcję
-- Dokumentuję: co zrobiłem, dlaczego, jaki jest status, jakie dane zabezpieczyłem
+**Minuty 10–15: Zabezpieczam**
+- Dokumentuję: co zrobiłem, dlaczego, jaki jest status
 - Przygotowuję plan przywrócenia na moment kontaktu z zarządem
 
-**Uzasadnienie:** Kontynuowanie sprzedaży po zaniżonych cenach generuje realną, rosnącą stratę. Brak sprzedaży w weekend to strata znana i ograniczona. Pełna dokumentacja (logi, screenshoty, lista zamówień) pozwoli szybko przywrócić działanie i ocenić skalę strat po kontakcie z zespołem zarządzającym. Zasada: najpierw ogranicz szkody, potem naprawiaj.
+**Uzasadnienie:** Sprzedaż po zaniżonych cenach = strata rosnąca z każdą minutą. Brak sprzedaży w weekend = strata znana i ograniczona. Pełna dokumentacja pozwoli szybko wrócić do normalnej pracy w poniedziałek.
 
 ---
 
@@ -140,53 +122,45 @@ Kopiowanie 1:1 nie skaluje się. Każdy nowy marketplace (bol.com, Kaufland, OTT
 
 ### Tok myślenia
 
-> 5 zadań, różne deadliny, różna pilność. Muszę je ułożyć w kolejności, która minimalizuje ryzyko (nic nie przegapisz) i maksymalizuje efektywność (deep work w jednym kawałku).
+> 5 zadań, różne deadliny. Muszę ułożyć je tak, żeby nic nie przegapić i mieć czas na deep work.
 >
-> **Krok 1 — Klasyfikacja Eisenhowera**
-> - Zadanie 4 (wycena) → pilne + ważne (twardy deadline 14:00, blokuje inną osobę)
-> - Zadanie 1 (bug klienta A) → pilne + ważne (klient czeka, realna strata)
-> - Zadanie 3 (deep work Amazon) → ważne + niepilne (deadline środa, ale wymaga największego bloku czasu)
-> - Zadanie 2 (case study CEO) → ważne + niepilne (deadline jutro rano, szablon jest znany)
-> - Zadanie 5 (literówka) → niepilne + nieważne (zero wpływu biznesowego)
+> **Co ma twardy deadline?**
+> Wycena (zadanie 4) — spotkanie o 14:00. Jeśli nie będzie gotowa, Sales idzie z pustymi rękami.
 >
-> **Krok 2 — Zależności i blokady**
-> Zadanie 4 blokuje spotkanie o 14:00 — jeśli wycena nie będzie gotowa, Sales idzie na spotkanie z pustymi rękami. To jedyny hard deadline dnia.
-> Zadanie 1 — klient czeka. Ale nie muszę naprawić buga od razu — wystarczy triage (wstępna diagnoza i ocena skali problemu) + ETA. Klient potrzebuje wiedzieć że ktoś się tym zajmuje.
+> **Co może czekać, ale nie powinno?**
+> Bug klienta A (zadanie 1). Nie muszę naprawić od razu — wystarczy szybki response i ETA.
 >
-> **Krok 3 — Optymalizacja bloków czasu**
-> Deep work (zadanie 3) wymaga ~3h skupienia. Jeśli rozbiorę go na kawałki, stracę czas na context switching. Najlepiej go zrobić po zamknięciu zadań "z deadline'em" — wtedy mam czysty umysł.
+> **Co wymaga długiego skupienia?**
+> Deep work Amazon (zadanie 3) — 5 godzin. Najlepiej w jednym kawałku, po zamknięciu pilnych rzeczy.
 >
-> **Krok 4 — Quick win na start**
-> Zamiast od razu wskakiwać w wycenę, wysyłam 2-minutowy response do Klienta A: "Widzę, ogarniam, dam znać do południa". Koszt: 2 minuty. Wartość: klient nie czuje się ignorowany. To zmienia jego percepcję z "nikt się tym nie zajmuje" na "jest pod kontrolą".
->
-> **Krok 5 — Fallback plan**
-> Co jeśli bug u Klienta A okaże się krytyczny? Wtedy repriorytyzuję: naprawiam buga, deep work Amazon przesuwam na jutro rano. Deadline środa daje margines jednego dnia. Bez fallbacku plan jest kruchy.
+> **Sprytny ruch na start:**
+> Zanim zacznę wycenę, 2-minutowy response do klienta A: "Widzę, ogarniam". Koszt: 2 minuty. Efekt: klient nie czuje się ignorowany.
 
 ### Kolejność: 4 → 1 → 3 → 2 → 5
 
 | Priorytet | Zadanie | Dlaczego |
 |-----------|---------|----------|
-| **1.** | 4 — Wycena dla Sales | Twardy deadline zewnętrzny (spotkanie 14:00), ~30 min pracy, blokuje inną osobę |
-| **2.** | 1 — Bug kategoryzacji klienta A | Klient czeka, realny problem (5% produktów), najpierw triage i ETA |
-| **3.** | 3 — Deep Work Amazon | Najdłuższy blok, deadline środa. Po zamknięciu 4 i 1 mam spokój na skupienie |
-| **4.** | 2 — Case study dla CEO | Termin jutro rano. Struktura case study jest powtarzalna (problem → rozwiązanie → wynik → następne kroki), ~45 min pracy szablonowej |
-| **5.** | 5 — Literówka | Zero wpływu biznesowego, wrzucam jak zostanie czas |
+| **1.** | 4 — Wycena dla Sales | Twardy deadline 14:00, ~30 min, blokuje inną osobę |
+| **2.** | 1 — Bug klienta A | Klient czeka. Najpierw triage (wstępna diagnoza i ocena skali problemu), potem ETA |
+| **3.** | 3 — Deep Work Amazon | Deadline środa, wymaga 5h skupienia. Robię po zamknięciu pilnych rzeczy |
+| **4.** | 2 — Case study dla CEO | Deadline jutro rano. Szablon znany, ~45 min |
+| **5.** | 5 — Literówka | Zero wpływu, robię jak zostanie czas |
 
 **Niuans:** Zanim zacznę wycenę, w pierwszych 5 minutach wyślę Klientowi A szybki response: "Widzę zgłoszenie, triage robię dziś rano, wrócę z ETA" — żeby nie wisiał bez odpowiedzi.
 
-**Fallback:** Jeśli triage bugu u Klienta A pokaże, że problem jest krytyczny (np. blokuje sprzedaż), repriorytyzuję: naprawiam bug, a deep work Amazon przesuwam na jutro rano — deadline środa daje margines.
+**Plan B:** Jeśli bug klienta A okaże się poważny (np. blokuje mu sprzedaż), zmieniam plan: naprawiam buga, deep work Amazon przesuwam na jutro rano — deadline środa daje dzień zapasu.
 
 ### Morning Update na Discordzie (9:15):
 
 > Cześć, plan na dziś:
 >
 > 1. 9:15–9:45 — wycena dla Sales na spotkanie o 14:00
-> 2. 9:45–10:15 — triage błędu kategoryzacji u Klienta A → dam znać ETA naprawy do południa
-> 3. 10:15–13:15 — deep work nad integracją Amazon (deadline: środa). Będę mniej responsywny na czacie — wracam w przerwach
+> 2. 9:45–10:15 — diagnoza błędu u Klienta A → dam znać ETA do południa
+> 3. 10:15–13:15 — deep work Amazon (deadline: środa). Będę mniej responsywny — wracam w przerwach
 > 4. 13:15–13:45 — bufor na ad-hoc / przygotowanie do spotkania
-> 5. 13:45–14:30 — spotkanie z Sales (wycena), więc w tym oknie jestem niedostępny
-> 6. 14:30–15:15 — case study dla CEO na jutro (szablon: problem → rozwiązanie → wynik → next steps)
-> 7. Literówkę w panelu ogarnę jak zostanie okno
+> 5. 13:45–14:30 — spotkanie z Sales
+> 6. 14:30–15:15 — case study dla CEO na jutro
+> 7. Literówkę ogarnę jak zostanie okno
 >
 > Jeśli coś pilnego — pingujcie, wyjdę z deep worku.
 
