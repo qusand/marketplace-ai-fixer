@@ -23,7 +23,16 @@ const COLUMNS = [
 const ERROR_STATUSES = ["missing", "non_numeric", "checksum_invalid", "non_exact"];
 
 export async function POST(request: NextRequest) {
-  const products: CleanProduct[] = await request.json();
+  let products: CleanProduct[];
+  try {
+    const body = await request.json();
+    if (!Array.isArray(body) || body.length === 0 || body.length > 500) {
+      return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
+    }
+    products = body as CleanProduct[];
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+  }
 
   const workbook = new ExcelJS.Workbook();
   workbook.creator = "Marketplace AI-Fixer";

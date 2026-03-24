@@ -39,15 +39,29 @@ const HEADERS = [
 
 function escapeCsvField(value: string | number | null | undefined): string {
   const str = value === null || value === undefined ? "" : String(value);
-  // Escape if contains separator, quotes, or newlines
-  if (str.includes(";") || str.includes('"') || str.includes("\n") || str.includes("\r")) {
-    return `"${str.replace(/"/g, '""')}"`;
+  // Prevent CSV formula injection — prefix dangerous leading characters
+  let safe = str;
+  if (/^[=+\-@\t\r]/.test(safe)) {
+    safe = "'" + safe;
   }
-  return str;
+  // Escape if contains separator, quotes, or newlines
+  if (safe.includes(";") || safe.includes('"') || safe.includes("\n") || safe.includes("\r")) {
+    return `"${safe.replace(/"/g, '""')}"`;
+  }
+  return safe;
 }
 
 export async function POST(request: NextRequest) {
-  const products: CleanProduct[] = await request.json();
+  let products: CleanProduct[];
+  try {
+    const body = await request.json();
+    if (!Array.isArray(body) || body.length === 0 || body.length > 500) {
+      return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
+    }
+    products = body as CleanProduct[];
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+  }
 
   // UTF-8 BOM for Excel compatibility with Polish characters
   const BOM = "\uFEFF";
