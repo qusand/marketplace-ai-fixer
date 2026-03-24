@@ -3,76 +3,71 @@
 import type { CleanProduct, RawProduct } from "@/lib/types";
 import { EanBadge, StanBadge } from "./status-badge";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { XIcon } from "lucide-react";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+} from "@/components/ui/sheet";
 
-interface ProductDetailProps {
-  product: CleanProduct;
+interface ProductDetailSheetProps {
+  product: CleanProduct | null;
   rawProduct: RawProduct | undefined;
-  onClose: () => void;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 }
 
-export function ProductDetail({
+export function ProductDetailSheet({
   product,
   rawProduct,
-  onClose,
-}: ProductDetailProps) {
+  open,
+  onOpenChange,
+}: ProductDetailSheetProps) {
+  if (!product) return null;
+
   const titleLen = product.tytul_allegro.length;
 
   return (
-    <div className="rounded-lg border border-border/60 bg-card overflow-hidden animate-in fade-in-0 slide-in-from-top-1 duration-200">
-      {/* ── Header bar ── */}
-      <div className="flex items-center justify-between px-5 py-3 border-b border-border/40 bg-muted/15">
-        <div className="flex items-center gap-3">
-          <span className="font-mono text-sm font-semibold text-primary">
+    <Sheet open={open} onOpenChange={onOpenChange}>
+      <SheetContent side="right" className="w-full sm:max-w-lg overflow-y-auto">
+        <SheetHeader>
+          <SheetTitle className="font-mono text-sm">
             {product.sku}
-          </span>
-          <span className="text-muted-foreground/30">·</span>
-          <span className="text-sm text-foreground/80 capitalize">
-            {product.kolor}
-          </span>
-          <span className="text-xs text-muted-foreground/40 tabular-nums">
-            {product.wymiary_display}
-          </span>
-        </div>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={onClose}
-          className="h-7 w-7 text-muted-foreground/50 hover:text-foreground"
-        >
-          <XIcon className="h-4 w-4" />
-        </Button>
-      </div>
+          </SheetTitle>
+          <SheetDescription>
+            <span className="capitalize">{product.kolor}</span>
+            {product.wymiary_display && (
+              <span className="text-muted-foreground/60"> · {product.wymiary_display}</span>
+            )}
+          </SheetDescription>
+        </SheetHeader>
 
-      <div className="p-5">
-        {/* ── Allegro Title — prominent ── */}
-        <div className="mb-5">
-          <div className="flex items-center gap-2 mb-1.5">
-            <Label>Tytuł Allegro</Label>
-            <span
-              className={`text-[10px] tabular-nums font-mono ${
-                titleLen > 70
-                  ? "text-amber-400"
-                  : "text-muted-foreground/40"
-              }`}
-            >
-              {titleLen}/75
-            </span>
+        <div className="px-4 pb-6 space-y-6">
+          {/* ── Allegro Title ── */}
+          <div>
+            <div className="flex items-center gap-2 mb-1.5">
+              <Label>Tytuł Allegro</Label>
+              <span
+                className={`text-[10px] tabular-nums font-mono ${
+                  titleLen > 70
+                    ? "text-amber-400"
+                    : "text-muted-foreground/40"
+                }`}
+              >
+                {titleLen}/75
+              </span>
+            </div>
+            <p className="text-[15px] font-medium leading-snug text-foreground">
+              {product.tytul_allegro}
+            </p>
           </div>
-          <p className="text-[15px] font-medium leading-snug text-foreground">
-            {product.tytul_allegro}
-          </p>
-        </div>
 
-        <div className="h-px bg-border/40 mb-5" />
+          <div className="h-px bg-border/40" />
 
-        {/* ── Two-column layout ── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Left: Cleaned data */}
+          {/* ── Cleaned data ── */}
           <div className="space-y-4">
-            <Label className="mb-3 text-primary/70">Dane oczyszczone</Label>
-
+            <Label className="text-primary/70">Dane oczyszczone</Label>
             <div className="grid grid-cols-2 gap-x-6 gap-y-4">
               <Field label="Kolor">
                 <span className="capitalize text-foreground/90">
@@ -122,46 +117,48 @@ export function ProductDetail({
             </div>
           </div>
 
-          {/* Right: Raw source data */}
+          {/* ── Raw source data ── */}
           {rawProduct && (
-            <div className="space-y-4">
-              <Label className="mb-3">Dane źródłowe (oryginał)</Label>
+            <>
+              <div className="h-px bg-border/40" />
+              <div className="space-y-4">
+                <Label>Dane źródłowe (oryginał)</Label>
+                <div className="rounded-md border border-border/30 bg-background/50 p-4 space-y-3">
+                  <Field label="Nazwa oryginalna">
+                    <span className="text-muted-foreground text-sm">
+                      {rawProduct["NAZWA ORG"]}
+                    </span>
+                  </Field>
+                  <Field label="Cena (surowa)" mono>
+                    <span className="text-muted-foreground">
+                      {rawProduct.Cena}
+                    </span>
+                  </Field>
+                  <Field label="Stan (surowy)" mono>
+                    <span className="text-muted-foreground">
+                      {String(rawProduct.Stany)}
+                    </span>
+                  </Field>
+                  <Field label="EAN (surowy)" mono>
+                    <span className="text-muted-foreground">
+                      {rawProduct.EAN || "—"}
+                    </span>
+                  </Field>
+                </div>
 
-              <div className="rounded-md border border-border/30 bg-background/50 p-4 space-y-3">
-                <Field label="Nazwa oryginalna">
-                  <span className="text-muted-foreground text-sm">
-                    {rawProduct["NAZWA ORG"]}
-                  </span>
-                </Field>
-                <Field label="Cena (surowa)" mono>
-                  <span className="text-muted-foreground">
-                    {rawProduct.Cena}
-                  </span>
-                </Field>
-                <Field label="Stan (surowy)" mono>
-                  <span className="text-muted-foreground">
-                    {String(rawProduct.Stany)}
-                  </span>
-                </Field>
-                <Field label="EAN (surowy)" mono>
-                  <span className="text-muted-foreground">
-                    {rawProduct.EAN || "—"}
-                  </span>
-                </Field>
+                <div className="pt-1">
+                  <Field label="Opis surowy">
+                    <pre className="text-[11px] font-mono whitespace-pre-wrap break-all text-muted-foreground/60 bg-background/50 rounded-md p-3 border border-border/30 max-h-36 overflow-y-auto leading-relaxed">
+                      {rawProduct["Opis ofe"]}
+                    </pre>
+                  </Field>
+                </div>
               </div>
-
-              <div className="pt-1">
-                <Field label="Opis surowy">
-                  <pre className="text-[11px] font-mono whitespace-pre-wrap break-all text-muted-foreground/60 bg-background/50 rounded-md p-3 border border-border/30 max-h-36 overflow-y-auto leading-relaxed">
-                    {rawProduct["Opis ofe"]}
-                  </pre>
-                </Field>
-              </div>
-            </div>
+            </>
           )}
         </div>
-      </div>
-    </div>
+      </SheetContent>
+    </Sheet>
   );
 }
 
