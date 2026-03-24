@@ -4,7 +4,7 @@ Narzędzie do automatycznego czyszczenia i normalizacji brudnych danych produkto
 
 ## Live Demo
 
-[link do Vercel — zostanie dodany po deployu]
+[https://marketplace-ai-fixer.vercel.app](https://marketplace-ai-fixer.vercel.app)
 
 ## Problem
 
@@ -15,24 +15,32 @@ Partnerskie eksporty produktów zawierają niespójne formaty cen (`59.90 PLN` v
 - **Automatyczna detekcja i czyszczenie 3 formatów opisów** (HTML, zagnieżdżony JSON, plain text)
 - **Normalizacja wymiarów** (`040*060cm` → `40 x 60 cm`), **kolorów** (`j. szary` → `jasnoszary`), **cen** (ujednolicony format)
 - **Walidacja EAN-13** z checksumą — jawne statusy zamiast cichego ukrywania problemów
-- **Generowanie tytułów Allegro** (max 75 znaków, zoptymalizowane pod SEO marketplace)
-- **Eksport do Excel** (.xlsx z formatowaniem warunkowym) i **CSV** (UTF-8 BOM, separator `;`)
+- **Generowanie tytułów Allegro** (max 75 znaków, zoptymalizowane pod SEO marketplace na bazie researchu rynkowego)
+- **Eksport do Excel** (.xlsx z formatowaniem warunkowym, auto-filter, frozen headers) i **CSV** (UTF-8 BOM, separator `;`)
 - **Profesjonalny dashboard** z widokiem przed/po, statusami jakości danych i panelem szczegółów
 
 ## Tech Stack
 
-Next.js · Tailwind CSS · shadcn/ui · TypeScript · exceljs
+Next.js 16 · Tailwind CSS 4 · shadcn/ui · TypeScript · exceljs
 
 ## Uruchomienie lokalne
 
 ```bash
-git clone [repo-url]
+git clone https://github.com/qusand/marketplace-ai-fixer.git
 cd marketplace-ai-fixer
 npm install
 npm run dev
 ```
 
 Otwórz [http://localhost:3000](http://localhost:3000).
+
+## Weryfikacja pipeline'u
+
+```bash
+npx tsx src/lib/verify-pipeline.ts
+```
+
+Uruchamia 34 automatycznych testów porównujących output pipeline'u z tabelą referencyjną.
 
 ## Struktura projektu
 
@@ -54,7 +62,8 @@ src/
 │   ├── types.ts                    # TypeScript types
 │   ├── pipeline.ts                 # Pipeline czyszczenia + tytuły Allegro
 │   ├── parsers.ts                  # Parsery: opis, wymiary, kolor, cena, stan
-│   └── validators.ts              # Walidacja EAN-13
+│   ├── validators.ts              # Walidacja EAN-13
+│   └── verify-pipeline.ts         # Skrypt weryfikacyjny (34 testy)
 └── data/
     └── partner_export_dirty.json   # Dane wejściowe
 ```
@@ -69,3 +78,7 @@ src/
 | Niespójne ceny (`59,90` vs `59.90 PLN`) | Ujednolicony format z walutą |
 | Mieszane stany (`15`, `"dużo"`, `0`) | Klasyfikacja: exact / non_exact / empty |
 | Błędne EAN-y (`""`, `"BŁĄD_ODCZYTU"`) | Walidacja checksum EAN-13 ze statusem |
+
+## Podejście
+
+Pipeline jest w pełni deterministyczny — zero AI guessingu, zero per-record exceptions. Wszystkie 4 rekordy przechodzą przez ten sam kod. Tytuły Allegro budowane na bazie researchu rynkowego (analiza bestsellerów, wzorców SEO) i grounded w danych źródłowych każdego SKU — żadna cecha w tytule nie jest dodana bez pokrycia w opisie produktu.
