@@ -87,7 +87,7 @@ export function normalizePrice(raw: string): {
 
 // ─── Stock normalization ─────────────────────────────────────────────
 
-export function normalizeStock(raw: number | string): {
+export function normalizeStock(raw: number | string | null | undefined): {
   stan_wartosc: number | null;
   stan_status: StanStatus;
 } {
@@ -113,35 +113,40 @@ export function normalizeStock(raw: number | string): {
 // ─── Description cleaning ────────────────────────────────────────────
 
 function stripHtml(html: string): string {
-  return html
-    .replace(/<[^>]*>/g, "") // Remove tags
+  // Decode entities FIRST so encoded tags become real tags,
+  // then strip all tags — prevents XSS via entity-encoded payloads
+  let text = html
     .replace(/&amp;/g, "&")
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
-    .replace(/&nbsp;/g, " ")
-    .replace(/\s+/g, " ") // Collapse whitespace
-    .trim();
+    .replace(/&nbsp;/g, " ");
+  text = text.replace(/<[^>]*>/g, "");
+  return text.replace(/\s+/g, " ").trim();
 }
 
 function extractFromJson(jsonStr: string): string {
-  const parsed = JSON.parse(jsonStr);
-  const texts: string[] = [];
+  try {
+    const parsed = JSON.parse(jsonStr);
+    const texts: string[] = [];
 
-  if (parsed.sections && Array.isArray(parsed.sections)) {
-    for (const section of parsed.sections) {
-      if (section.items && Array.isArray(section.items)) {
-        for (const item of section.items) {
-          if (item.type === "TEXT" && item.content) {
-            texts.push(item.content);
+    if (parsed.sections && Array.isArray(parsed.sections)) {
+      for (const section of parsed.sections) {
+        if (section.items && Array.isArray(section.items)) {
+          for (const item of section.items) {
+            if (item.type === "TEXT" && item.content) {
+              texts.push(item.content);
+            }
           }
         }
       }
     }
-  }
 
-  return texts.join(" ").replace(/\s+/g, " ").trim();
+    return texts.join(" ").replace(/\s+/g, " ").trim();
+  } catch {
+    return jsonStr.replace(/\s+/g, " ").trim();
+  }
 }
 
 function detectFormat(raw: string): OpisFormat {
