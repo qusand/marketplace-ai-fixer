@@ -47,8 +47,10 @@ Kopiowanie 1:1 nie skaluje się. Każdy nowy marketplace (bol.com, Kaufland, OTT
 **Decyzja: Wstrzymuję system cenowy — jeśli skala przekracza próg akceptowalnego ryzyka.**
 
 ### Próg decyzyjny:
-- Odchyłka cenowa > 10% LUB dotyczy > 50 SKU → **wstrzymuję natychmiast**
+- Odchyłka cenowa ≥ 10% LUB dotyczy ≥ 50 SKU → **wstrzymuję natychmiast**
+- 10–49 SKU i marża spadła, ale nadal dodatnia → **wstrzymuję moduł cenowy, ale nie całą sprzedaż** (izolacja)
 - < 10 SKU i marża nadal dodatnia → **monitoruję i czekam na kontakt zarządu** (max 30 min)
+- W razie wątpliwości → domyślna akcja to **wstrzymanie** (bezpieczniejsza strona błędu)
 
 ### Kroki w ciągu 15 minut:
 
