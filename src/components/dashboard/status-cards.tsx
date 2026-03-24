@@ -63,19 +63,19 @@ const COLOR_STYLES: Record<
     dot: "bg-muted-foreground/30",
   },
   green: {
-    icon: "text-emerald-400",
-    value: "text-emerald-400",
-    dot: "bg-emerald-400",
+    icon: "text-emerald-600 dark:text-emerald-400",
+    value: "text-foreground",
+    dot: "bg-emerald-500",
   },
   red: {
-    icon: "text-red-400",
-    value: "text-red-400",
-    dot: "bg-red-400",
+    icon: "text-red-600 dark:text-red-400",
+    value: "text-foreground",
+    dot: "bg-red-500",
   },
   amber: {
-    icon: "text-amber-400",
-    value: "text-amber-400",
-    dot: "bg-amber-400",
+    icon: "text-amber-600 dark:text-amber-400",
+    value: "text-foreground",
+    dot: "bg-amber-500",
   },
 };
 
@@ -96,7 +96,7 @@ function MetricCard({
 
   return (
     <Card size="sm" className="border-border/60">
-      <CardContent className="pt-0">
+      <CardContent>
         <div className="flex items-center justify-between mb-2.5">
           <p className="text-xs font-medium text-muted-foreground/70 tracking-wide">
             {label}

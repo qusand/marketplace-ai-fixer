@@ -14,23 +14,23 @@ const EAN_CONFIG: Record<
   valid: {
     text: "Poprawny",
     className:
-      "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+      "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
     tip: "EAN-13 przechodzi walidację checksum",
   },
   missing: {
     text: "Brak",
-    className: "bg-red-500/10 text-red-400 border-red-500/20",
+    className: "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20",
     tip: "Pole EAN jest puste",
   },
   non_numeric: {
     text: "Błędny",
-    className: "bg-red-500/10 text-red-400 border-red-500/20",
+    className: "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20",
     tip: "Zawiera znaki inne niż cyfry",
   },
   checksum_invalid: {
     text: "Checksum",
     className:
-      "bg-red-500/10 text-red-400 border-red-500/20",
+      "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20",
     tip: "13 cyfr, ale checksum EAN-13 nie zgadza się",
   },
 };
@@ -61,16 +61,16 @@ const STAN_CONFIG: Record<
 > = {
   exact: {
     className:
-      "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+      "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
     tip: "Dokładna wartość magazynowa",
   },
   non_exact: {
     className:
-      "bg-amber-500/10 text-amber-400 border-amber-500/20",
+      "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
     tip: 'Wartość przybliżona (np. "dużo")',
   },
   empty: {
-    className: "bg-red-500/10 text-red-400 border-red-500/20",
+    className: "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20",
     tip: "Brak danych o stanie",
   },
 };
