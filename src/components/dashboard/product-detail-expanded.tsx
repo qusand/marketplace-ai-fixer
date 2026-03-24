@@ -101,7 +101,7 @@ export function ProductDetailExpanded({
           <TabsList>
             <TabsTrigger value="details">Szczegóły</TabsTrigger>
             <TabsTrigger value="compare">Porównanie</TabsTrigger>
-            <TabsTrigger value="allegro">Podgląd Allegro</TabsTrigger>
+            <TabsTrigger value="allegro">Podgląd</TabsTrigger>
           </TabsList>
 
           {/* Details Tab */}
