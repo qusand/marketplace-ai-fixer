@@ -4,7 +4,7 @@ Narzędzie do automatycznego czyszczenia i normalizacji brudnych danych produkto
 
 ## Live Demo
 
-[https://marketplace-ai-fixer.vercel.app](https://marketplace-ai-fixer.vercel.app)
+[https://marketplace-ai-fixer-opal.vercel.app](https://marketplace-ai-fixer-opal.vercel.app)
 
 ## Problem
 
