@@ -128,5 +128,17 @@
   }
   html {
     @apply font-sans;
+    transition: color 200ms ease, background-color 200ms ease;
+  }
+  /* Smooth theme transition on all themed elements */
+  body,
+  .bg-card,
+  .bg-background,
+  .bg-muted,
+  .border-border {
+    transition:
+      background-color 200ms ease,
+      border-color 200ms ease,
+      color 200ms ease;
   }
 }
