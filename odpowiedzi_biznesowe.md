@@ -29,10 +29,10 @@ Muszę być szczery: wsparcie w ramach wdrożenia skończyło się dwa miesiące
 
 Żeby nie tracić czasu, dwie opcje:
 
-1. **Jednorazowa naprawa** — diagnoza i fix w trybie priorytetowym. Wycenę wyślę w ciągu godziny.
+1. **Jednorazowa naprawa** — diagnoza i fix w trybie priorytetowym. Typowa interwencja tego typu to rząd wielkości 500–1500 PLN netto — dokładną wycenę wyślę w ciągu godziny po potwierdzeniu zlecenia.
 2. **Stała opieka (Managed Service)** — monitoring + reakcja na incydenty. Z MS ten problem wykrylibyśmy automatycznie, zanim zdążylibyście go zauważyć.
 
-Dajcie znać którą drogą idziemy — mogę zacząć dziś.
+Biorąc pod uwagę naszą dotychczasową współpracę, chętnie traktuję to priorytetowo. Dajcie znać do końca dnia, którą drogą idziemy — wtedy mogę uruchomić diagnozę jeszcze dziś.
 
 Pozdrawiam,
 [Imię]
@@ -111,6 +111,7 @@ Kopiowanie nie skaluje się. Każdy nowy marketplace (bol.com, Kaufland, OTTO) m
 - Przygotowuję listę zamówień po zaniżonych cenach
 
 **Minuty 10–15: Zabezpieczam**
+- Zamówienia już złożone po zaniżonej cenie: eksportuję listę z kwotami, żeby zarząd mógł podjąć decyzję (realizować ze stratą vs kontakt z klientami). Sam nie anuluję — to decyzja biznesowa powyżej mojego mandatu
 - Dokumentuję: co zrobiłem, dlaczego, jaki jest status
 - Przygotowuję plan przywrócenia na moment kontaktu z zarządem
 
@@ -150,22 +151,29 @@ Kopiowanie nie skaluje się. Każdy nowy marketplace (bol.com, Kaufland, OTTO) m
 
 **Plan B:** Jeśli bug klienta A okaże się poważny (np. blokuje mu sprzedaż), zmieniam plan: naprawiam buga, deep work Amazon przesuwam na jutro rano — deadline środa daje dzień zapasu.
 
+**EOD:** Pod koniec dnia wrzucam krótki update na Discorda: co zamknąłem, co przechodzi na jutro, czy są blokery. Zespół nie musi pytać.
+
 ### Morning Update na Discordzie (9:15):
 
 > Cześć, plan na dziś:
 >
-> 1. 9:15–9:45 — wycena dla Sales na spotkanie o 14:00
-> 2. 9:45–10:15 — diagnoza błędu u Klienta A → dam znać ETA do południa
-> 3. 10:15–13:15 — deep work Amazon (deadline: środa). Będę mniej responsywny — wracam w przerwach
-> 4. 13:15–13:45 — bufor na ad-hoc / przygotowanie do spotkania
+> **MUST** (twardy deadline):
+> 1. 9:15–9:50 — wycena dla Sales na spotkanie o 14:00 (robię rano, żeby Sales miał czas na dopytki)
+>
+> **SHOULD** (ważne, dziś):
+> 2. 9:50–10:30 — diagnoza błędu u Klienta A → dam znać ETA do południa
+> 3. 10:30–13:00 — deep work Amazon (deadline: środa). Będę mniej responsywny — wracam w przerwach
+>
+> **NICE TO HAVE:**
+> 4. 13:00–13:45 — bufor na ad-hoc / przygotowanie do spotkania
 > 5. 13:45–14:30 — spotkanie z Sales
 > 6. 14:30–15:15 — case study dla CEO na jutro
 > 7. Literówkę ogarnę jak zostanie okno
 >
-> Jeśli coś pilnego — pingujcie, wyjdę z deep worku.
+> Jeśli coś pilnego — pingujcie, wyjdę z deep worku. EOD dam znać status.
 
 ---
 
 ## Surowe Case Study (4 zdania)
 
-Partner dostarczył eksport produktów z niespójnymi formatami cen, opisami w surowym HTML/JSON i brakującymi kodami EAN — ręczne czyszczenie takiego pliku dla katalogu 500+ SKU to kilka godzin pracy i gwarancja błędów. Marketplace AI-Fixer automatycznie normalizuje wymiary, kolory i ceny, czyści opisy z warstwy technicznej, waliduje EAN-y i generuje gotowe tytuły sprzedażowe na Allegro — cały proces trwa sekundy. Narzędzie eliminuje powtarzalną pracę ręczną: operator wrzuca plik i pobiera gotowy eksport z jawnie oznaczonymi problemami do rozwiązania. Przy typowym eksporcie 500–1000 SKU skraca czas przygotowania ofert z kilku godzin do minut i ogranicza ryzyko błędnych danych na marketplace.
+Partner e-commerce dostarczył eksport 800 produktów z niespójnymi cenami (przecinki vs kropki, brak waluty), opisami zamkniętymi w surowym HTML i JSON oraz niepoprawnymi kodami EAN — ręczne czyszczenie takiego pliku to ~6 godzin pracy operatora i nieuniknione błędy, które kończą się ofertami z widocznym kodem HTML lub odrzuconymi przez marketplace. Marketplace AI-Fixer przetwarza cały eksport w sekundy: normalizuje wymiary, kolory i ceny, czyści opisy z warstwy technicznej, waliduje EAN-y checksumą i generuje gotowe tytuły sprzedażowe na Allegro — a każdy problem oznacza jawnie zamiast go ukrywać. Przy 4 eksportach miesięcznie narzędzie oszczędza ~24 godziny pracy operatora (przy stawce 80 PLN/h to prawie 2000 PLN miesięcznie) i eliminuje ryzyko błędnych danych trafiających do klientów. Operator wrzuca plik, pobiera gotowy eksport z flagami problemów i zajmuje się tylko tym, co wymaga ludzkiej decyzji — zamiast godzinami czyścić dane ręcznie.
