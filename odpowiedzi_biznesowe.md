@@ -6,33 +6,22 @@
 
 ### Tok myślenia
 
-> Klient ma problem, jest zły, traci pieniądze. Ale formalnie nie mamy umowy na wsparcie.
->
-> **Co jest ważniejsze — relacja czy formalność?**
-> Relacja. Ale nie mogę pracować za darmo — to zły precedens. Szukam środka: daję mu coś wartościowego od razu (quick win), a jednocześnie uczciwie mówię o sytuacji kontraktowej.
->
-> **Co mogę dać od razu?**
-> Wskazówkę, którą sam może sprawdzić w 2 minuty (API Health w Seller Central). Jeśli to throttling — problem zniknie sam. Ja nic nie tracę, a klient dostaje pomoc.
->
-> **Jak zaproponować Managed Service bez wciskania?**
-> Przez kontrast: "z MS ten problem wykrylibyśmy zanim go zauważycie". Pokazuję wartość, nie sprzedaję.
+> Klient traci pieniądze, jest wkurzony. Formalnie nie mam podstaw do interwencji. Mogę go olać (poprawnie) albo pomóc (buduje relację). Olewanie poprawnego klienta = głupota. Darmowa praca = zły precedens. Więc: daję mu coś co nic mnie nie kosztuje (wskazówka diagnostyczna), a resztę wyceniam.
 
-**Temat: Pilne — aktualizacja cen Amazon, plan działania**
+**Temat: Ceny Amazon — plan naprawy**
 
 Panie [Imię],
 
-Widzę problem z cenami na Amazonie — rozumiem, że każda godzina bez aktualizacji to realna strata.
+Sprawdźcie w Seller Central zakładkę *API Health* — jeśli status to "Throttled", limit zresetuje się w ciągu 15 minut i problem zniknie sam.
 
-Na szybko: sprawdźcie w Seller Central zakładkę *API Health* — jeśli status to "Throttled", reset limitu nastąpi w ciągu 15 minut. Jeśli to nie pomoże, potrzebna będzie głębsza diagnoza.
+Jeśli to nie pomoże, potrzebna będzie diagnoza po naszej stronie. Wsparcie wdrożeniowe zakończyło się w [miesiąc] i nie macie aktywnego abonamentu, więc interwencja będzie płatna.
 
-Muszę być szczery: wsparcie w ramach wdrożenia skończyło się dwa miesiące temu i nie macie aktywnego abonamentu, więc formalnie nie mamy mandatu do interwencji.
+Dwie opcje:
 
-Żeby nie tracić czasu, dwie opcje:
+1. **Jednorazowa naprawa** — diagnoza + fix, priorytetowo. Rząd wielkości: 500–1500 PLN netto, dokładną wycenę potwierdzę po zleceniu.
+2. **Managed Service** — stały monitoring, reagujemy na incydenty zanim je zauważycie. Szczegóły mogę przesłać.
 
-1. **Jednorazowa naprawa** — diagnoza i fix w trybie priorytetowym. Typowa interwencja tego typu to rząd wielkości 500–1500 PLN netto — dokładną wycenę wyślę w ciągu godziny po potwierdzeniu zlecenia.
-2. **Stała opieka (Managed Service)** — monitoring + reakcja na incydenty. Z MS ten problem wykrylibyśmy automatycznie, zanim zdążylibyście go zauważyć.
-
-Biorąc pod uwagę naszą dotychczasową współpracę, chętnie traktuję to priorytetowo. Dajcie znać do końca dnia, którą drogą idziemy — wtedy mogę uruchomić diagnozę jeszcze dziś.
+Jeśli chcecie żebym ruszył z diagnozą dziś, potrzebuję potwierdzenia zlecenia do 17:00.
 
 Pozdrawiam,
 [Imię]
@@ -43,24 +32,18 @@ Pozdrawiam,
 
 ### Tok myślenia
 
-> Klient chce kopiować opisy 1:1. Muszę go przekonać że to zły pomysł — ale nie technicznie ("algorytm", "SEO"), tylko w języku pieniędzy.
->
-> **Dlaczego klient to proponuje?**
-> Bo myśli że to najtańsze i najszybsze. Muszę pokazać: (a) to nie jest tańsze, bo poprawki kosztują więcej, (b) to nie jest szybsze, bo produkty będą niewidoczne.
->
-> **Jakie argumenty zadziałają?**
-> Trzy, z trzech różnych stron: utracony przychód (coś czego klient nie widzi), koszt poprawek (coś co poczuje za miesiąc), skalowalność (strategia na przyszłość).
+> Klient myśli, że kopiowanie 1:1 to najtańsza i najszybsza droga. Muszę mu pokazać w języku pieniędzy: (a) jest niewidoczny, więc traci przychód, (b) poprawki po fakcie kosztują więcej niż adaptacja, (c) eMAG sam go za to karze.
 
 ### 3 argumenty za adaptacją AI zamiast kopiowania 1:1
 
-**1. Tracicie pieniądze na niewidoczność**
-eMAG ma własne zasady sortowania wyników. Opisy z Allegro nie pasują do tych zasad — produkty lądują na dole wyników albo poza nimi. Płacicie za obecność na eMAG, ale klienci Was po prostu nie widzą. Produkty poza top 20 wyników tracą ~80% kliknięć. Adaptacja AI to różnica między "jesteś na eMAG" a "sprzedajesz na eMAG".
+**1. Płacicie za obecność na eMAG, ale nikt Was nie widzi**
+eMAG ma własne zasady sortowania wyników. Opisy z Allegro nie pasują do tych zasad — produkty lądują na dole wyników albo poza nimi. Produkty poza top 20 wyników tracą ~80% kliknięć. Adaptacja AI to różnica między "jesteś na eMAG" a "sprzedajesz na eMAG".
 
-**2. Poprawki po fakcie kosztują więcej niż zrobienie tego dobrze od razu**
-Kopiowanie 1:1 prawie zawsze kończy się poprawkami: ręczne edycje, reklamacje, kolejne iteracje. Płacicie dwa razy — raz za kopiowanie, drugi raz za ratowanie jakości. Przy 500 produktach to 2–3 dni pracy operatora na poprawki. Adaptacja AI jest tańsza niż powtarzany rework.
+**2. Poprawki po publikacji kosztują więcej niż adaptacja**
+Kopiowanie 1:1 prawie zawsze kończy się poprawkami: ręczne edycje, reklamacje, kolejne iteracje. Przy 500 produktach to 2–3 dni pracy operatora — płacicie dwa razy za ten sam efekt. Jednorazowa adaptacja AI jest tańsza niż powtarzany rework.
 
-**3. Następny marketplace = ten sam problem od zera**
-Kopiowanie nie skaluje się. Każdy nowy marketplace (bol.com, Kaufland, OTTO) ma inne wymagania. Adaptacja AI buduje powtarzalny proces: dziś eMAG, jutro kolejne kanały — bez gaszenia pożarów od nowa.
+**3. eMAG karze za zduplikowane treści**
+Marketplace'y coraz aktywniej penalizują skopiowane opisy — identyczne treści na wielu platformach dostają niższy ranking albo są flagowane jako duplikaty. Kopiowanie 1:1 nie jest neutralne — aktywnie obniża Waszą pozycję. Adaptacja AI generuje unikalne opisy dostosowane do wymagań eMAG, więc nie ryzykujecie kary za duplikację.
 
 ---
 
@@ -83,6 +66,8 @@ Kopiowanie nie skaluje się. Każdy nowy marketplace (bol.com, Kaufland, OTTO) m
 > Dlatego najpierw sprawdzam skalę. Mała skala = czekam na zarząd. Duża skala = działam sam.
 >
 > **Zasada:** W sytuacji niepewności, lepiej wytłumaczyć "wstrzymałem, bo nie miałem pewności" niż "kontynuowałem, mimo że wiedziałem o problemie".
+>
+> **Dlaczego nie dzwonię?** CEO nie odbiera — to jest dane w zadaniu. Ale nawet gdyby odbierał: pisemny raport > telefon. Zostawia ślad, nie wymaga natychmiastowej reakcji, pokazuje kontrolę zamiast paniki. Działam autonomicznie i informuję — nie proszę o pozwolenie.
 
 **Decyzja: Wstrzymuję system cenowy — jeśli skala przekracza próg akceptowalnego ryzyka.**
 
@@ -100,9 +85,9 @@ Kopiowanie nie skaluje się. Każdy nowy marketplace (bol.com, Kaufland, OTTO) m
 - Zbieram listę dotkniętych produktów
 - Robię screenshoty i eksportuję logi (żeby mieć dowody)
 
-**Minuty 3–5: Dzwonię i piszę**
-- Telefon do CEO i COO (dwa razy)
-- SMS + Slack/Discord/mail: "PILNE — błąd marży na [X] produktach, odchyłka [Y]%, podejmuję decyzję o wstrzymaniu, oddzwońcie"
+**Minuty 3–5: Wysyłam raport sytuacyjny (pisemnie)**
+- Slack/Discord + SMS do CEO i COO z linkiem do kanału: "PILNE — błąd marży na [X] produktach, odchyłka [Y]%, wyłączam moduł cenowy. Pełny raport na kanale. Zamówieniami po złej cenie zajmiemy się w poniedziałek."
+- Pisemnie, nie telefonicznie — zostawiam ślad, nie wymagam od nikogo natychmiastowej reakcji, pokazuję że mam sytuację pod kontrolą
 
 **Minuty 5–10: Podejmuję decyzję**
 - Jeśli próg przekroczony → wyłączam wadliwy moduł cenowy
@@ -123,52 +108,34 @@ Kopiowanie nie skaluje się. Każdy nowy marketplace (bol.com, Kaufland, OTTO) m
 
 ### Tok myślenia
 
-> 5 zadań, różne deadliny. Muszę ułożyć je tak, żeby nic nie przegapić i mieć czas na deep work.
->
-> **Co ma twardy deadline?**
-> Wycena (zadanie 4) — spotkanie o 14:00. Jeśli nie będzie gotowa, Sales idzie z pustymi rękami.
->
-> **Co może czekać, ale nie powinno?**
-> Bug klienta A (zadanie 1). Nie muszę naprawić od razu — wystarczy szybki response i ETA.
->
-> **Co wymaga długiego skupienia?**
-> Deep work Amazon (zadanie 3) — 5 godzin. Najlepiej w jednym kawałku, po zamknięciu pilnych rzeczy.
->
-> **Sprytny ruch na start:**
-> Zanim zacznę wycenę, 2-minutowy response do klienta A: "Widzę, ogarniam". Koszt: 2 minuty. Efekt: klient nie czuje się ignorowany.
+> Twardy deadline: wycena na spotkanie o 14:00 — robię rano, żeby Sales miał czas na dopytki. Zanim zacznę, 2-minutowy response do klienta A żeby nie wisiał bez odpowiedzi. Po zamknięciu pilnych rzeczy — blok deep work na Amazon (deadline środa, mam dzień zapasu). Case study i literówka na koniec dnia.
 
 ### Kolejność: 4 → 1 → 3 → 2 → 5
 
 | Priorytet | Zadanie | Dlaczego |
 |-----------|---------|----------|
 | **1.** | 4 — Wycena dla Sales | Twardy deadline 14:00, ~30 min, blokuje inną osobę |
-| **2.** | 1 — Bug klienta A | Klient czeka. Najpierw triage (wstępna diagnoza i ocena skali problemu), potem ETA |
+| **2.** | 1 — Bug klienta A | Klient czeka. Najpierw triage, potem ETA |
 | **3.** | 3 — Deep Work Amazon | Deadline środa, wymaga 5h skupienia. Robię po zamknięciu pilnych rzeczy |
 | **4.** | 2 — Case study dla CEO | Deadline jutro rano. Szablon znany, ~45 min |
 | **5.** | 5 — Literówka | Zero wpływu, robię jak zostanie czas |
 
-**Niuans:** Zanim zacznę wycenę, w pierwszych 5 minutach wyślę Klientowi A szybki response: "Widzę zgłoszenie, triage robię dziś rano, wrócę z ETA" — żeby nie wisiał bez odpowiedzi.
-
 **Plan B:** Jeśli bug klienta A okaże się poważny (np. blokuje mu sprzedaż), zmieniam plan: naprawiam buga, deep work Amazon przesuwam na jutro rano — deadline środa daje dzień zapasu.
 
-**EOD:** Pod koniec dnia wrzucam krótki update na Discorda: co zamknąłem, co przechodzi na jutro, czy są blokery. Zespół nie musi pytać.
+**EOD:** Pod koniec dnia wrzucam krótki update na Discorda: co zamknąłem, co przechodzi na jutro, czy są blokery.
 
 ### Morning Update na Discordzie (9:15):
 
 > Cześć, plan na dziś:
 >
-> **MUST** (twardy deadline):
-> 1. 9:15–9:50 — wycena dla Sales na spotkanie o 14:00 (robię rano, żeby Sales miał czas na dopytki)
->
-> **SHOULD** (ważne, dziś):
+> 1. 9:15–9:50 — wycena dla Sales na spotkanie o 14:00 (robię rano, żeby mieli czas na dopytki)
 > 2. 9:50–10:30 — diagnoza błędu u Klienta A → dam znać ETA do południa
 > 3. 10:30–13:00 — deep work Amazon (deadline: środa). Będę mniej responsywny — wracam w przerwach
->
-> **NICE TO HAVE:**
 > 4. 13:00–13:45 — bufor na ad-hoc / przygotowanie do spotkania
-> 5. 13:45–14:30 — spotkanie z Sales
-> 6. 14:30–15:15 — case study dla CEO na jutro
-> 7. Literówkę ogarnę jak zostanie okno
+> 5. 13:45–14:30 — spotkanie z Sales (twardy slot, jestem niedostępny)
+> 6. 14:30–15:00 — bufor
+> 7. 15:00–15:45 — case study dla CEO na jutro
+> 8. Literówkę ogarnę jak zostanie okno
 >
 > Jeśli coś pilnego — pingujcie, wyjdę z deep worku. EOD dam znać status.
 
@@ -176,4 +143,4 @@ Kopiowanie nie skaluje się. Każdy nowy marketplace (bol.com, Kaufland, OTTO) m
 
 ## Surowe Case Study (4 zdania)
 
-Partner e-commerce dostarczył eksport 800 produktów z niespójnymi cenami (przecinki vs kropki, brak waluty), opisami zamkniętymi w surowym HTML i JSON oraz niepoprawnymi kodami EAN — ręczne czyszczenie takiego pliku to ~6 godzin pracy operatora i nieuniknione błędy, które kończą się ofertami z widocznym kodem HTML lub odrzuconymi przez marketplace. Marketplace AI-Fixer przetwarza cały eksport w sekundy: normalizuje wymiary, kolory i ceny, czyści opisy z warstwy technicznej, waliduje EAN-y checksumą i generuje gotowe tytuły sprzedażowe na Allegro — a każdy problem oznacza jawnie zamiast go ukrywać. Przy 4 eksportach miesięcznie narzędzie oszczędza ~24 godziny pracy operatora (przy stawce 80 PLN/h to prawie 2000 PLN miesięcznie) i eliminuje ryzyko błędnych danych trafiających do klientów. Operator wrzuca plik, pobiera gotowy eksport z flagami problemów i zajmuje się tylko tym, co wymaga ludzkiej decyzji — zamiast godzinami czyścić dane ręcznie.
+Narzędzie przetworzyło eksport z 4 produktami w 3 różnych formatach danych — ceny z przecinkami i bez waluty, opisy w surowym HTML i zagnieżdżonym JSON, błędne i brakujące kody EAN — i automatycznie znormalizowało wszystko do jednego spójnego formatu z gotowymi tytułami Allegro. Pipeline wykrył 4 problemy, które przy ręcznym czyszczeniu łatwo przeoczyć: dwa EAN-y z błędną checksumą, jeden brakujący EAN i jedną nieliczbową wartość stanu magazynowego. Przy skali typowego partnera (500–1000 SKU) ten sam proces zastąpiłby ~6 godzin ręcznej pracy operatora i wyeliminował ryzyko, że na marketplace trafią oferty z widocznym kodem HTML lub nieprawidłowym EAN. Operator wrzuca plik, pobiera czysty eksport z jawnie oznaczonymi problemami i zajmuje się wyłącznie decyzjami — nie czyszczeniem danych.
