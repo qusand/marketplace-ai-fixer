@@ -2,6 +2,7 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Package, ShieldCheck, BarChart3, AlertTriangle } from "lucide-react";
+import { useDesign } from "./design-provider";
 import type { CleanProduct } from "@/lib/types";
 
 type Props = {
@@ -9,6 +10,7 @@ type Props = {
 };
 
 export function StatusCards({ products }: Props) {
+  const { isLinear } = useDesign();
   const total = products.length;
   const eanOk = products.filter((p) => p.ean_status === "valid").length;
   const eanProblems = total - eanOk;
@@ -53,12 +55,35 @@ export function StatusCards({ products }: Props) {
     },
   ];
 
+  /* Linear: plain text list, no card chrome */
+  if (isLinear) {
+    return (
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-3">
+        {cards.map((card) => (
+          <div key={card.label} className="py-1">
+            <p className="text-[10px] font-medium text-muted-foreground uppercase tracking-widest">
+              {card.label}
+            </p>
+            <p className="text-2xl font-semibold tracking-tight mt-1 text-foreground">
+              {card.value}
+            </p>
+            <p className="text-[11px] text-muted-foreground mt-0.5">{card.sub}</p>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  /* Classic: card-based */
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
       {cards.map((card) => {
         const Icon = card.icon;
         return (
-          <Card key={card.label} className="border-border/40 dark:border-border/20 transition-colors duration-150 hover:border-primary/30">
+          <Card
+            key={card.label}
+            className="border-border/40 dark:border-border/20 transition-colors duration-150 hover:border-primary/30"
+          >
             <CardContent className="pt-6 pb-5 px-6">
               <div className="flex items-start justify-between">
                 <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-widest">

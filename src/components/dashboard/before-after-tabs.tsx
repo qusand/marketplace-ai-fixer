@@ -13,6 +13,7 @@ import {
 import type { CleanProduct, RawProduct } from "@/lib/types";
 import { generateChangeLog } from "@/lib/pipeline";
 import { ChangeHistory } from "./change-history";
+import { useDesign } from "./design-provider";
 
 type Props = {
   products: CleanProduct[];
@@ -20,24 +21,29 @@ type Props = {
 };
 
 export function BeforeAfterTabs({ products, rawProducts }: Props) {
+  const { isLinear } = useDesign();
   const changelog = useMemo(() => generateChangeLog(rawProducts, products), [rawProducts, products]);
   const totalChanges = changelog.reduce(
     (sum, e) => sum + e.fields.filter((f) => f.type !== "unchanged").length, 0
   );
 
+  const tabTriggerClass = isLinear
+    ? "text-[10px] sm:text-[11px] px-2 sm:px-3 h-7 tracking-wide"
+    : "text-[11px] sm:text-xs px-2 sm:px-3 h-7";
+
   return (
     <Tabs defaultValue="after" className="w-full">
-      <TabsList className="h-8 w-full sm:w-auto overflow-x-auto scrollbar-none">
-        <TabsTrigger value="after" className="text-[11px] sm:text-xs px-2 sm:px-3 h-7">
+      <TabsList variant={isLinear ? "line" : "default"} className={`w-full sm:w-auto overflow-x-auto scrollbar-none ${isLinear ? "h-9 pb-1" : "h-8"}`}>
+        <TabsTrigger value="after" className={tabTriggerClass}>
           Po czyszczeniu
         </TabsTrigger>
-        <TabsTrigger value="before" className="text-[11px] sm:text-xs px-2 sm:px-3 h-7">
+        <TabsTrigger value="before" className={tabTriggerClass}>
           Dane surowe
         </TabsTrigger>
-        <TabsTrigger value="compare" className="text-[11px] sm:text-xs px-2 sm:px-3 h-7">
+        <TabsTrigger value="compare" className={tabTriggerClass}>
           Porównanie
         </TabsTrigger>
-        <TabsTrigger value="changelog" className="text-[11px] sm:text-xs px-2 sm:px-3 h-7">
+        <TabsTrigger value="changelog" className={tabTriggerClass}>
           <span className="hidden sm:inline">Historia zmian</span>
           <span className="sm:hidden">Historia</span>
           {" "}({totalChanges})
@@ -47,7 +53,7 @@ export function BeforeAfterTabs({ products, rawProducts }: Props) {
       {/* Fixed-height wrapper prevents layout shift between tabs */}
       <div className="mt-3 min-h-[280px]">
         <TabsContent value="after" className="mt-0">
-          <div className="rounded-lg border border-border/50 overflow-hidden">
+          <div className={`rounded-lg border ${isLinear ? "border-border/30" : "border-border/50"} overflow-hidden`}>
             <div className="overflow-x-auto">
               <Table className="table-fixed w-full min-w-[600px]">
                 <colgroup>
@@ -58,7 +64,7 @@ export function BeforeAfterTabs({ products, rawProducts }: Props) {
                   <col className="w-[52%]" />
                 </colgroup>
                 <TableHeader>
-                  <TableRow className="bg-muted/30 hover:bg-muted/30">
+                  <TableRow className={isLinear ? "bg-muted/20 hover:bg-muted/20" : "bg-muted/30 hover:bg-muted/30"}>
                     <TableHead className="text-xs font-semibold uppercase tracking-wider">SKU</TableHead>
                     <TableHead className="text-xs font-semibold uppercase tracking-wider">Kolor</TableHead>
                     <TableHead className="text-xs font-semibold uppercase tracking-wider">Wymiary</TableHead>
@@ -83,7 +89,7 @@ export function BeforeAfterTabs({ products, rawProducts }: Props) {
         </TabsContent>
 
         <TabsContent value="before" className="mt-0">
-          <div className="rounded-lg border border-border/50 overflow-hidden">
+          <div className={`rounded-lg border ${isLinear ? "border-border/30" : "border-border/50"} overflow-hidden`}>
             <div className="overflow-x-auto">
               <Table className="table-fixed w-full min-w-[600px]">
                 <colgroup>
@@ -94,7 +100,7 @@ export function BeforeAfterTabs({ products, rawProducts }: Props) {
                   <col className="w-[44%]" />
                 </colgroup>
                 <TableHeader>
-                  <TableRow className="bg-muted/30 hover:bg-muted/30">
+                  <TableRow className={isLinear ? "bg-muted/20 hover:bg-muted/20" : "bg-muted/30 hover:bg-muted/30"}>
                     <TableHead className="text-xs font-semibold uppercase tracking-wider">SKU</TableHead>
                     <TableHead className="text-xs font-semibold uppercase tracking-wider">Nazwa oryginalna</TableHead>
                     <TableHead className="text-xs font-semibold uppercase tracking-wider">Cena</TableHead>
@@ -125,7 +131,7 @@ export function BeforeAfterTabs({ products, rawProducts }: Props) {
               return (
                 <div
                   key={p.sku}
-                  className="rounded-lg border border-border/50 p-4"
+                  className={`rounded-lg border p-4 ${isLinear ? "border-border/30" : "border-border/50"}`}
                 >
                   <p className="font-mono text-xs font-semibold mb-3">
                     {p.sku}

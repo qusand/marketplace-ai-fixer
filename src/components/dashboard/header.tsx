@@ -3,7 +3,9 @@
 import { useState, useCallback, useRef } from "react";
 import { Upload } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
+import { DesignToggle } from "./design-toggle";
 import { ExportButtons } from "./export-buttons";
+import { useDesign } from "./design-provider";
 import { processProducts } from "@/lib/pipeline";
 import type { RawProduct, CleanProduct } from "@/lib/types";
 
@@ -16,6 +18,7 @@ export function Header({ products, onDataUpdate }: Props) {
   const [isDragOver, setIsDragOver] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const dragCounter = useRef(0);
+  const { isLinear } = useDesign();
 
   const handleDrop = useCallback(async (e: React.DragEvent) => {
     e.preventDefault();
@@ -49,29 +52,30 @@ export function Header({ products, onDataUpdate }: Props) {
       className={`border-b transition-colors duration-150 ${
         isDragOver
           ? "border-2 border-dashed border-primary bg-primary/5"
-          : "border-border/50"
+          : isLinear ? "border-border/30" : "border-border/50"
       }`}
       onDragOver={(e) => { e.preventDefault(); }}
       onDragEnter={(e) => { e.preventDefault(); dragCounter.current++; setIsDragOver(true); }}
       onDragLeave={() => { dragCounter.current--; if (dragCounter.current === 0) setIsDragOver(false); }}
       onDrop={(e) => { dragCounter.current = 0; handleDrop(e); }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
+      <div className={isLinear ? "max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-5" : "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4"}>
         {/* Mobile: stack, Desktop: row */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           {/* Title + drag hint */}
           <div className="flex items-center justify-between sm:justify-start sm:gap-6">
             <div>
-              <h1 className="text-base sm:text-lg font-semibold tracking-tight">
+              <h1 className={isLinear ? "text-sm sm:text-base font-medium tracking-tight" : "text-base sm:text-lg font-semibold tracking-tight"}>
                 Marketplace AI-Fixer
               </h1>
-              <p className="text-[11px] text-muted-foreground mt-0.5">
+              <p className={isLinear ? "text-[10px] text-muted-foreground mt-1 tracking-wide" : "text-[11px] text-muted-foreground mt-0.5"}>
                 Czyszczenie i normalizacja danych produktowych
               </p>
             </div>
 
-            {/* Theme toggle — visible on mobile next to title */}
-            <div className="sm:hidden">
+            {/* Theme + Design toggle — visible on mobile next to title */}
+            <div className="flex items-center gap-1 sm:hidden">
+              <DesignToggle />
               <ThemeToggle />
             </div>
           </div>
@@ -89,10 +93,11 @@ export function Header({ products, onDataUpdate }: Props) {
             </div>
           )}
 
-          {/* Actions: export + theme */}
+          {/* Actions: export + design toggle + theme */}
           <div className="flex items-center gap-2">
             <ExportButtons products={products} />
-            <div className="hidden sm:block">
+            <div className="hidden sm:flex items-center gap-1">
+              <DesignToggle />
               <ThemeToggle />
             </div>
           </div>

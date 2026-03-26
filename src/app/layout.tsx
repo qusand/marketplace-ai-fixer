@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/dashboard/theme-provider";
+import { DesignProvider } from "@/components/dashboard/design-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import "./globals.css";
 
@@ -32,7 +33,9 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <ThemeProvider>
-          <TooltipProvider>{children}</TooltipProvider>
+          <DesignProvider>
+            <TooltipProvider>{children}</TooltipProvider>
+          </DesignProvider>
         </ThemeProvider>
       </body>
     </html>

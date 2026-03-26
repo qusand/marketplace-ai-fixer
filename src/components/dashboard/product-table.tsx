@@ -13,6 +13,7 @@ import {
 import { EanBadge } from "./ean-badge";
 import { StockBadge } from "./stock-badge";
 import { ProductDetailExpanded } from "./product-detail-expanded";
+import { useDesign } from "./design-provider";
 import type { CleanProduct, RawProduct } from "@/lib/types";
 
 type Props = {
@@ -22,34 +23,25 @@ type Props = {
 
 export function ProductTable({ products, rawProducts }: Props) {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  const { isLinear } = useDesign();
+
+  const thClass = isLinear
+    ? "text-[10px] font-medium uppercase tracking-widest text-muted-foreground/70"
+    : "text-xs font-semibold uppercase tracking-wider";
 
   return (
-    <div className="rounded-lg border border-border/50 overflow-hidden">
+    <div className={`overflow-hidden ${isLinear ? "rounded-md border border-border" : "rounded-lg border border-border/50"}`}>
       <div className="overflow-x-auto">
-        <Table className="min-w-[700px]">
+        <Table className={isLinear ? "w-full" : "min-w-[700px]"}>
           <TableHeader>
-            <TableRow className="bg-muted/30 hover:bg-muted/30">
-              <TableHead className="text-xs font-semibold uppercase tracking-wider w-[130px] sm:w-[140px]">
-                SKU
-              </TableHead>
-              <TableHead className="text-xs font-semibold uppercase tracking-wider w-[100px] sm:w-[120px]">
-                Kolor
-              </TableHead>
-              <TableHead className="text-xs font-semibold uppercase tracking-wider w-[100px] sm:w-[120px]">
-                Wymiary
-              </TableHead>
-              <TableHead className="text-xs font-semibold uppercase tracking-wider w-[80px] sm:w-[90px] text-right">
-                Cena
-              </TableHead>
-              <TableHead className="text-xs font-semibold uppercase tracking-wider w-[90px] sm:w-[110px] text-center">
-                Stan
-              </TableHead>
-              <TableHead className="text-xs font-semibold uppercase tracking-wider w-[90px] sm:w-[100px] text-center">
-                EAN
-              </TableHead>
-              <TableHead className="text-xs font-semibold uppercase tracking-wider">
-                Tytuł Allegro
-              </TableHead>
+            <TableRow className={isLinear ? "bg-muted/20 hover:bg-muted/20" : "bg-muted/30 hover:bg-muted/30"}>
+              <TableHead className={`${thClass} w-[130px] sm:w-[140px]`}>SKU</TableHead>
+              <TableHead className={`${thClass} w-[100px] sm:w-[120px]`}>Kolor</TableHead>
+              <TableHead className={`${thClass} w-[100px] sm:w-[120px]`}>Wymiary</TableHead>
+              <TableHead className={`${thClass} w-[80px] sm:w-[90px] text-right`}>Cena</TableHead>
+              <TableHead className={`${thClass} w-[90px] sm:w-[110px] text-center`}>Stan</TableHead>
+              <TableHead className={`${thClass} w-[90px] sm:w-[100px] text-center`}>EAN</TableHead>
+              <TableHead className={thClass}>Tytuł Allegro</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -59,10 +51,12 @@ export function ProductTable({ products, rawProducts }: Props) {
                 <TableRow
                   key={product.sku}
                   data-expanded={isExpanded || undefined}
-                  className="group cursor-pointer transition-colors duration-150 hover:bg-primary/5 data-[expanded]:bg-primary/5 data-[expanded]:border-b-0"
-                  onClick={() =>
-                    setExpandedIndex(isExpanded ? null : i)
+                  className={
+                    isLinear
+                      ? "group cursor-pointer transition-colors duration-300 hover:bg-muted/40 data-[expanded]:bg-muted/40 data-[expanded]:border-b-0"
+                      : "group cursor-pointer transition-colors duration-150 hover:bg-primary/5 data-[expanded]:bg-primary/5 data-[expanded]:border-b-0"
                   }
+                  onClick={() => setExpandedIndex(isExpanded ? null : i)}
                 >
                   <TableCell className="font-mono text-xs font-medium">
                     <div className="flex items-center gap-1.5">
@@ -81,15 +75,10 @@ export function ProductTable({ products, rawProducts }: Props) {
                     {product.wymiary_display ?? "—"}
                   </TableCell>
                   <TableCell className="text-sm text-right tabular-nums">
-                    {product.cena_wartosc
-                      ? `${product.cena_wartosc} zł`
-                      : "—"}
+                    {product.cena_wartosc ? `${product.cena_wartosc} zł` : "—"}
                   </TableCell>
                   <TableCell className="text-center">
-                    <StockBadge
-                      status={product.stan_status}
-                      value={product.stan_wartosc}
-                    />
+                    <StockBadge status={product.stan_status} value={product.stan_wartosc} />
                   </TableCell>
                   <TableCell className="text-center">
                     <EanBadge status={product.ean_status} />
