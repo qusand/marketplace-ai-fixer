@@ -5,6 +5,15 @@ import { useEffect, useState } from "react";
 import { Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+// View Transitions API type (not yet in all TS DOM libs)
+type ViewTransitionDocument = Document & {
+  startViewTransition: (cb: () => void | Promise<void>) => unknown;
+};
+
+function supportsViewTransitions(): boolean {
+  return typeof document !== "undefined" && "startViewTransition" in document;
+}
+
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -23,9 +32,10 @@ export function ThemeToggle() {
     // old state and cross-fades (500ms) to the new DOM. Individual element
     // transitions are invisible behind the screenshot composite, so zero
     // oklch interpolation artifacts.
-    if ("startViewTransition" in document) {
-      (document as unknown as { startViewTransition: (cb: () => void) => void })
-        .startViewTransition(() => setTheme(nextTheme));
+    if (supportsViewTransitions()) {
+      (document as ViewTransitionDocument).startViewTransition(() =>
+        setTheme(nextTheme)
+      );
       return;
     }
 
