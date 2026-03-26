@@ -154,6 +154,18 @@ export function ProductDetailExpanded({
                     {product.tytul_allegro.length}/75 znaków
                   </p>
                 </div>
+                <div className="mt-3 rounded-md bg-muted/50 px-3 py-2.5 text-xs text-muted-foreground leading-relaxed">
+                  <p className="font-medium text-foreground/70 mb-1">Dlaczego taki tytuł?</p>
+                  <p>
+                    Przeskanowaliśmy ~20 najlepiej sprzedających się ofert na Allegro
+                    dla &quot;dywanik łazienkowy Belweder&quot; za pomocą Claude Code
+                    + Claude-in-Chrome. Belweder to rozpoznawalna linia produktowa
+                    e-floor (50+ ocen, 17 kupujących ostatnio). Top oferty używają
+                    lowercase, zawierają cechy (antypoślizgowy, chłonny) i materiał.
+                    Tytuł generujemy regułami — każda cecha musi mieć źródło
+                    w opisie tego konkretnego produktu.
+                  </p>
+                </div>
               </div>
             </div>
           </TabsContent>
