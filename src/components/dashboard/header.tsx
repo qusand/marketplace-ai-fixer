@@ -49,7 +49,7 @@ export function Header({ products, onDataUpdate }: Props) {
 
   return (
     <header
-      className={`border-b transition-colors duration-150 ${
+      className={`border-b transition-colors duration-300 ${
         isDragOver
           ? "border-2 border-dashed border-primary bg-primary/5"
           : isLinear ? "border-border/30" : "border-border/50"

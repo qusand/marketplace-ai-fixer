@@ -14,15 +14,15 @@ const config: Record<
 > = {
   exact: {
     tooltip: "Dokładna wartość stanu magazynowego",
-    className: "bg-primary/10 text-primary border-primary/20 hover:bg-primary/15 transition-colors duration-150",
+    className: "bg-primary/10 text-primary border-primary/20 hover:bg-primary/15 transition-colors duration-300",
   },
   non_exact: {
     tooltip: "Wartość przybliżona — dane źródłowe nie zawierały liczby",
-    className: "bg-amber-500/10 text-amber-600 border-amber-500/20 hover:bg-amber-500/15 transition-colors duration-150",
+    className: "bg-amber-500/10 text-amber-600 border-amber-500/20 hover:bg-amber-500/15 transition-colors duration-300",
   },
   empty: {
     tooltip: "Brak informacji o stanie magazynowym",
-    className: "bg-red-500/10 text-red-600 border-red-500/20 hover:bg-red-500/15 transition-colors duration-150",
+    className: "bg-red-500/10 text-red-600 border-red-500/20 hover:bg-red-500/15 transition-colors duration-300",
   },
 };
 

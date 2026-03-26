@@ -219,8 +219,10 @@
 }
 
 /*
- * Smooth theme transition (from rekrutacja).
- * 350ms ease on key elements for comfortable light/dark switch.
+ * Smooth theme transition.
+ * 300ms ease on structural elements for comfortable light/dark switch.
+ * NOTE: Button and Badge handle their own transitions via Tailwind
+ * (also 300ms) so everything stays in sync.
  */
 body,
 main,
@@ -234,14 +236,13 @@ p,
 h1, h2, h3, h4,
 a,
 table, thead, tbody, tr, th, td,
-pre, code,
-button {
+pre, code {
   transition:
-    background-color 350ms ease,
-    border-color 350ms ease,
-    color 350ms ease,
-    fill 350ms ease,
-    box-shadow 350ms ease;
+    background-color 300ms ease,
+    border-color 300ms ease,
+    color 300ms ease,
+    fill 300ms ease,
+    box-shadow 300ms ease;
 }
 
 /*
