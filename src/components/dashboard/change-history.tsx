@@ -35,19 +35,19 @@ export function ChangeHistory({ entries }: { entries: ChangeLogEntry[] }) {
             {entry.fields.map((field) => {
               const bc = badgeConfig[field.type];
               return (
-                <div key={field.field} className="grid grid-cols-[80px_1fr_auto] items-start gap-2 text-xs">
-                  <span className="text-muted-foreground font-medium">{field.field}</span>
-                  <div className="flex items-start gap-1.5">
+                <div key={field.field} className="flex flex-wrap items-start gap-x-2 gap-y-1 text-xs py-1.5 border-b border-border/20 last:border-0">
+                  <span className="text-muted-foreground font-medium w-[70px] shrink-0">{field.field}</span>
+                  <div className="flex flex-wrap items-start gap-1 min-w-0 flex-1">
                     {field.type !== "unchanged" && (
                       <>
-                        <span className="font-mono text-muted-foreground line-through">{field.before}</span>
+                        <span className="font-mono text-muted-foreground line-through break-all">{field.before}</span>
                         <span className="text-muted-foreground">&rarr;</span>
                       </>
                     )}
-                    <span className="font-mono">{field.after}</span>
-                    <span className="text-[10px] text-muted-foreground ml-1">({field.reason})</span>
+                    <span className="font-mono break-all">{field.after}</span>
+                    <span className="text-[10px] text-muted-foreground">({field.reason})</span>
                   </div>
-                  <Badge variant="outline" className={`text-[10px] ${bc.className}`}>
+                  <Badge variant="outline" className={`text-[10px] shrink-0 ${bc.className}`}>
                     {bc.label}
                   </Badge>
                 </div>
