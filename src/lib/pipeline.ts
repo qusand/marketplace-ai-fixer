@@ -13,14 +13,46 @@ import { validateEan } from "./validators";
 /**
  * Generate an Allegro-optimized title for a product.
  *
- * Structure (from Allegro SEO research):
- * Base keyword → Type → Brand → Color → Dimensions → Sales hook → Material/param
+ * ──────────────────────────────────────────────────────────────────────
+ * TITLE STRATEGY — based on live Allegro market research (2026-03-26)
+ * ──────────────────────────────────────────────────────────────────────
+ *
+ * Research method:
+ * Used Claude Code with the Claude-in-Chrome browser extension to scan
+ * live Allegro listings for "dywanik łazienkowy Belweder" and generic
+ * "dywanik łazienkowy 40x60". Analyzed ~20 top-selling competitor titles
+ * to extract patterns from the highest-converting listings.
+ *
+ * Key findings from competitor analysis:
+ *
+ * 1. "Belweder" IS a recognized product line (e-floor brand) — top listings
+ *    have 50+ reviews and "17 osób kupiło ostatnio". Keeping it in the title.
+ *
+ * 2. Best-sellers include "pleciony" (woven) — it's a key differentiator.
+ *    Example: "Dywanik łazienkowy Belweder pleciony beżowy 40x60cm" (51 reviews)
+ *
+ * 3. Top listings use lowercase, not Title Case. "Dywanik łazienkowy" not
+ *    "Dywanik Łazienkowy" — Title Case looks auto-generated.
+ *
+ * 4. Feature keywords appear in almost every top title:
+ *    - "antypoślizgowy" in 5/6 top results
+ *    - "chłonny" in 2/6
+ *    - "do prania" in 2/6
+ *
+ * 5. Material matters: real Belweders are "bawełna", include when present.
+ *
+ * 6. Our previous titles used only ~40/75 chars. Competitors use 55-70.
+ *    More keywords = more search visibility.
+ *
+ * Title structure (post-research):
+ *   Dywanik łazienkowy Belweder [type] [color] [dims] [features] [material]
  *
  * Rules:
  * - Max 75 characters
  * - Every attribute must trace to this SKU's source data
- * - Capitalize first letter of significant words
+ * - Lowercase (sentence case) — matches market convention
  * - No keyword stuffing / redundancy
+ * ──────────────────────────────────────────────────────────────────────
  */
 export function generateAllegroTitle(product: {
   kolor: string | null;
@@ -30,37 +62,53 @@ export function generateAllegroTitle(product: {
   const { kolor, wymiary_display, opis_czysty } = product;
   const lower = opis_czysty.toLowerCase();
 
-  // Extract features from description — use stem variants for Polish morphology (from rekrutacja)
+  // Extract product type descriptor from description
+  const type = lower.includes("plecion") ? "pleciony" : null;
+
+  // Extract features — ordered by search frequency on Allegro (from research)
   const features: string[] = [];
   if (lower.includes("antypoślizgowy") || lower.includes("antypoślizg"))
-    features.push("Antypoślizgowy");
+    features.push("antypoślizgowy");
   if (lower.includes("chłonny") || lower.includes("chłonn"))
-    features.push("Chłonny");
+    features.push("chłonny");
   if (lower.includes("miękki") || lower.includes("miękk"))
-    features.push("Miękki");
-  if (lower.includes("100% poliester") || lower.includes("100% pes"))
-    features.push("100% Poliester");
+    features.push("miękki");
+  if (lower.includes("do prania") || lower.includes("pralce"))
+    features.push("do prania");
   if (/gramatura\s*\d+/i.test(lower)) {
     const gramMatch = lower.match(/gramatura\s*(\d+)/i);
     if (gramMatch) features.push(`${gramMatch[1]}g/m²`);
   }
 
-  // Build title: Dywanik Łazienkowy Belweder [Kolor] [Wymiar] [Feature]
-  const parts = ["Dywanik Łazienkowy Belweder"];
+  // Extract material for title suffix
+  let material: string | null = null;
+  if (lower.includes("bawełn") || lower.includes("100% bawełna"))
+    material = "bawełna";
+  else if (lower.includes("100% poliester") || lower.includes("100% pes"))
+    material = "poliester";
 
-  if (kolor) {
-    parts.push(kolor.charAt(0).toUpperCase() + kolor.slice(1));
-  }
+  // Build title: Dywanik łazienkowy Belweder [type] [color] [dims] [features] [material]
+  const parts = ["Dywanik łazienkowy Belweder"];
+
+  if (type) parts.push(type);
+  if (kolor) parts.push(kolor);
 
   if (wymiary_display) {
-    // Convert "40 x 60 cm" to "40x60 cm" for title brevity
     parts.push(wymiary_display.replace(/\s*x\s*/, "x"));
   }
 
-  // Add features until we hit 75 chars
+  // Add features until we approach 75 chars, leaving room for material
   let title = parts.join(" ");
   for (const feat of features) {
     const candidate = title + " " + feat;
+    if (candidate.length <= 70) {
+      title = candidate;
+    }
+  }
+
+  // Add material as last element if there's room
+  if (material) {
+    const candidate = title + " " + material;
     if (candidate.length <= 75) {
       title = candidate;
     }
