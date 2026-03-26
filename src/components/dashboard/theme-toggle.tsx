@@ -16,27 +16,35 @@ export function ThemeToggle() {
   }
 
   const isDark = resolvedTheme === "dark";
+  const nextTheme = isDark ? "light" : "dark";
 
   function handleToggle() {
-    const root = document.documentElement;
+    // Modern browsers: use View Transitions API for a smooth cross-fade.
+    // The browser screenshots the old state and cross-fades to the new one —
+    // no individual elements re-render during the animation, so zero flicker.
+    if ("startViewTransition" in document) {
+      (document as unknown as { startViewTransition: (cb: () => void) => void })
+        .startViewTransition(() => setTheme(nextTheme));
+      return;
+    }
 
-    // Remove previous animation (if user clicks rapidly)
-    root.classList.remove("theme-fade");
-    // Force reflow so re-adding the class restarts the animation
-    void root.offsetWidth;
-    root.classList.add("theme-fade");
+    // Fallback: two-phase opacity animation.
+    // Phase 1: fade out (180ms → opacity 0)
+    // Phase 2: swap theme while invisible, then fade in (250ms → opacity 1)
+    const body = document.body;
+    body.classList.add("theme-fade-out");
 
-    // Swap the theme — disableTransitionOnChange blocks CSS transitions
-    // for one frame (no oklch interpolation artifacts), while the opacity
-    // animation on <html> provides a pleasant visual crossfade.
-    setTheme(isDark ? "light" : "dark");
+    const handleFadeOut = () => {
+      body.classList.remove("theme-fade-out");
+      setTheme(nextTheme);
+      body.classList.add("theme-fade-in");
 
-    // Clean up the class after the animation finishes
-    root.addEventListener(
-      "animationend",
-      () => root.classList.remove("theme-fade"),
-      { once: true }
-    );
+      const handleFadeIn = () => {
+        body.classList.remove("theme-fade-in");
+      };
+      body.addEventListener("animationend", handleFadeIn, { once: true });
+    };
+    body.addEventListener("animationend", handleFadeOut, { once: true });
   }
 
   return (

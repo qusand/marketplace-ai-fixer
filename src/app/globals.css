@@ -219,19 +219,34 @@
 }
 
 /*
- * Theme-switch fade animation.
- * disableTransitionOnChange blocks all CSS transitions for one frame
- * (preventing oklch interpolation artifacts), while this opacity
- * animation provides a pleasant visual crossfade.
+ * Theme-switch crossfade — View Transitions API.
+ * The browser screenshots the old state and cross-fades to the new one.
+ * No individual element re-renders during the animation = zero flicker.
  */
-.theme-fade {
-  animation: themeFade 350ms ease-out both;
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 350ms;
+  animation-timing-function: ease-in-out;
 }
 
-@keyframes themeFade {
-  0%   { opacity: 1; }
-  25%  { opacity: 0.82; }
-  100% { opacity: 1; }
+/*
+ * Fallback for browsers without View Transitions API.
+ * Fades body to near-invisible, swaps theme while hidden, fades back in.
+ */
+.theme-fade-out {
+  animation: themeFadeOut 180ms ease-in forwards;
+}
+.theme-fade-in {
+  animation: themeFadeIn 250ms ease-out forwards;
+}
+
+@keyframes themeFadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+@keyframes themeFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 /*
