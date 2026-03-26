@@ -163,7 +163,10 @@ export function ProductDetailExpanded({
                     e-floor (50+ ocen, 17 kupujących ostatnio). Top oferty używają
                     lowercase, zawierają cechy (antypoślizgowy, chłonny) i materiał.
                     Tytuł generujemy regułami — każda cecha musi mieć źródło
-                    w opisie tego konkretnego produktu.
+                    w opisie tego konkretnego produktu. Dane testowe są ubogie
+                    (brak &quot;pleciony&quot;, &quot;bawełna&quot;, &quot;do prania&quot;),
+                    więc tytuły są krótsze niż byłyby z prawdziwym eksportem —
+                    pipeline wyciągnie więcej cech z bogatszych opisów.
                   </p>
                 </div>
               </div>
