@@ -220,24 +220,35 @@
 
 /*
  * Theme-switch crossfade — View Transitions API.
- * The browser screenshots the old state and cross-fades to the new one.
- * No individual element re-renders during the animation = zero flicker.
+ * The browser screenshots the old state, the new DOM renders underneath,
+ * and a compositor-level cross-fade animates between them.
+ * Individual element CSS transitions are invisible behind the screenshot.
  */
-::view-transition-old(root),
+::view-transition-old(root) {
+  animation: viewFadeOut 500ms ease-in-out both;
+}
 ::view-transition-new(root) {
-  animation-duration: 350ms;
-  animation-timing-function: ease-in-out;
+  animation: viewFadeIn 500ms ease-in-out both;
+}
+
+@keyframes viewFadeOut {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes viewFadeIn {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 /*
  * Fallback for browsers without View Transitions API.
- * Fades body to near-invisible, swaps theme while hidden, fades back in.
+ * Fades body to invisible, swaps theme while hidden, fades back in.
  */
 .theme-fade-out {
-  animation: themeFadeOut 180ms ease-in forwards;
+  animation: themeFadeOut 200ms ease-in forwards;
 }
 .theme-fade-in {
-  animation: themeFadeIn 250ms ease-out forwards;
+  animation: themeFadeIn 300ms ease-out forwards;
 }
 
 @keyframes themeFadeOut {

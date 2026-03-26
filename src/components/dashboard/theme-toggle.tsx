@@ -19,9 +19,10 @@ export function ThemeToggle() {
   const nextTheme = isDark ? "light" : "dark";
 
   function handleToggle() {
-    // Modern browsers: use View Transitions API for a smooth cross-fade.
-    // The browser screenshots the old state and cross-fades to the new one —
-    // no individual elements re-render during the animation, so zero flicker.
+    // Modern browsers: View Transitions API — the browser screenshots the
+    // old state and cross-fades (500ms) to the new DOM. Individual element
+    // transitions are invisible behind the screenshot composite, so zero
+    // oklch interpolation artifacts.
     if ("startViewTransition" in document) {
       (document as unknown as { startViewTransition: (cb: () => void) => void })
         .startViewTransition(() => setTheme(nextTheme));
@@ -29,22 +30,39 @@ export function ThemeToggle() {
     }
 
     // Fallback: two-phase opacity animation.
-    // Phase 1: fade out (180ms → opacity 0)
-    // Phase 2: swap theme while invisible, then fade in (250ms → opacity 1)
+    // Phase 1: fade body out (200ms → opacity 0).
+    // Phase 2: block CSS transitions, swap theme, fade body in (300ms).
     const body = document.body;
     body.classList.add("theme-fade-out");
 
-    const handleFadeOut = () => {
-      body.classList.remove("theme-fade-out");
-      setTheme(nextTheme);
-      body.classList.add("theme-fade-in");
+    body.addEventListener(
+      "animationend",
+      () => {
+        body.classList.remove("theme-fade-out");
 
-      const handleFadeIn = () => {
-        body.classList.remove("theme-fade-in");
-      };
-      body.addEventListener("animationend", handleFadeIn, { once: true });
-    };
-    body.addEventListener("animationend", handleFadeOut, { once: true });
+        // Block individual CSS transitions to avoid oklch flicker
+        const blocker = document.createElement("style");
+        blocker.textContent =
+          "*,*::before,*::after{transition:none!important}";
+        document.head.appendChild(blocker);
+
+        setTheme(nextTheme);
+
+        // Force the browser to apply new colors before removing the blocker
+        void getComputedStyle(body).color;
+        requestAnimationFrame(() => {
+          document.head.removeChild(blocker);
+          body.classList.add("theme-fade-in");
+
+          body.addEventListener(
+            "animationend",
+            () => body.classList.remove("theme-fade-in"),
+            { once: true }
+          );
+        });
+      },
+      { once: true }
+    );
   }
 
   return (
