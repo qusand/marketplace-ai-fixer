@@ -82,7 +82,7 @@ export function StatusCards({ products }: Props) {
         return (
           <Card
             key={card.label}
-            className="border-border/40 dark:border-border/20 transition-colors duration-300 hover:border-primary/30"
+            className="border-border/40 dark:border-border/20 transition-colors duration-150 hover:border-primary/30"
           >
             <CardContent className="pt-6 pb-5 px-6">
               <div className="flex items-start justify-between">

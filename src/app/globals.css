@@ -219,30 +219,19 @@
 }
 
 /*
- * Smooth theme transition.
- * 300ms ease on structural elements for comfortable light/dark switch.
- * NOTE: Button and Badge handle their own transitions via Tailwind
- * (also 300ms) so everything stays in sync.
+ * Theme-switch fade animation.
+ * disableTransitionOnChange blocks all CSS transitions for one frame
+ * (preventing oklch interpolation artifacts), while this opacity
+ * animation provides a pleasant visual crossfade.
  */
-body,
-main,
-header,
-footer,
-section,
-nav,
-div,
-span,
-p,
-h1, h2, h3, h4,
-a,
-table, thead, tbody, tr, th, td,
-pre, code {
-  transition:
-    background-color 300ms ease,
-    border-color 300ms ease,
-    color 300ms ease,
-    fill 300ms ease,
-    box-shadow 300ms ease;
+.theme-fade {
+  animation: themeFade 350ms ease-out both;
+}
+
+@keyframes themeFade {
+  0%   { opacity: 1; }
+  25%  { opacity: 0.82; }
+  100% { opacity: 1; }
 }
 
 /*

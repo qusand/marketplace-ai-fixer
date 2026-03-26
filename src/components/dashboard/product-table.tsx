@@ -60,7 +60,7 @@ export function ProductTable({ products, rawProducts }: Props) {
                   className={
                     isLinear
                       ? "group cursor-pointer transition-colors duration-300 hover:bg-muted/40 data-[expanded]:bg-muted/40 data-[expanded]:border-b-0"
-                      : "group cursor-pointer transition-colors duration-300 hover:bg-primary/5 data-[expanded]:bg-primary/5 data-[expanded]:border-b-0"
+                      : "group cursor-pointer transition-colors duration-150 hover:bg-primary/5 data-[expanded]:bg-primary/5 data-[expanded]:border-b-0"
                   }
                   onClick={() => setExpandedIndex(isExpanded ? null : i)}
                 >
