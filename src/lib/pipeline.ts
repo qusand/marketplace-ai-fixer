@@ -14,58 +14,83 @@ import { validateEan } from "./validators";
  * Generate an Allegro-optimized title for a product.
  *
  * ──────────────────────────────────────────────────────────────────────
- * TITLE STRATEGY — based on live Allegro market research (2026-03-26)
+ * TITLE STRATEGY
  * ──────────────────────────────────────────────────────────────────────
  *
- * Research method:
- * Used Claude Code with the Claude-in-Chrome browser extension to scan
- * live Allegro listings for "dywanik łazienkowy Belweder" and generic
- * "dywanik łazienkowy 40x60". Analyzed ~20 top-selling competitor titles
- * to extract patterns from the highest-converting listings.
- *
- * Key findings from competitor analysis:
- *
- * 1. "Belweder" IS a recognized product line (e-floor brand) — top listings
- *    have 50+ reviews and "17 osób kupiło ostatnio". Keeping it in the title.
- *
- * 2. Best-sellers include "pleciony" (woven) — it's a key differentiator.
- *    Example: "Dywanik łazienkowy Belweder pleciony beżowy 40x60cm" (51 reviews)
- *
- * 3. Top listings use lowercase, not Title Case. "Dywanik łazienkowy" not
- *    "Dywanik Łazienkowy" — Title Case looks auto-generated.
- *
- * 4. Feature keywords appear in almost every top title:
- *    - "antypoślizgowy" in 5/6 top results
- *    - "chłonny" in 2/6
- *    - "do prania" in 2/6
- *
- * 5. Material matters: real Belweders are "bawełna", include when present.
- *
- * 6. Our previous titles used only ~40/75 chars. Competitors use 55-70.
- *    More keywords = more search visibility.
- *
- * Title structure (post-research):
- *   Dywanik łazienkowy Belweder [type] [color] [dims] [features] [material]
- *
- * Rules:
+ * General rules (all products):
  * - Max 75 characters
  * - Every attribute must trace to this SKU's source data
- * - Lowercase (sentence case) — matches market convention
+ * - Lowercase (sentence case) — matches Allegro market convention
  * - No keyword stuffing / redundancy
+ * - Title structure: [Category] [Brand] [type] [color] [dims] [features] [material]
+ * - Category and brand extracted dynamically from NAZWA ORG
+ *
+ * Belweder-specific research (2026-03-26):
+ * Used Claude Code + Claude-in-Chrome to scan ~20 top Allegro listings.
+ * "Belweder" is a recognized e-floor product line (50+ reviews).
+ * Best-sellers include "pleciony", use lowercase, and pack feature keywords
+ * (antypoślizgowy, chłonny, do prania) into the title.
  * ──────────────────────────────────────────────────────────────────────
  */
+
+/** Known abbreviation expansions for product categories */
+const CATEGORY_EXPANSIONS: Record<string, string> = {
+  "dyw.": "dywanik",
+  "dyw": "dywanik",
+  "ręcz.": "ręcznik",
+  "ręcz": "ręcznik",
+  "kompl.": "komplet",
+  "podkł.": "podkładka",
+};
+
+/**
+ * Extract product category and brand from NAZWA ORG.
+ * Pattern: "[Category words] [Brand] [dims] [color]"
+ *
+ * Examples:
+ *   "Dyw. Łazienkowy Belweder 040*060cm czarny" → { prefix: "Dywanik łazienkowy Belweder" }
+ *   "Ręcznik Kąpielowy Luxus 070*140cm granatowy" → { prefix: "Ręcznik kąpielowy Luxus" }
+ */
+function extractProductPrefix(nazwaOrg: string): string {
+  // Remove dimension pattern and everything after it
+  const beforeDims = nazwaOrg
+    .replace(/\d{2,3}\s*[*xX×]\s*\d{2,3}\s*cm.*/i, "")
+    .trim();
+
+  if (!beforeDims) return nazwaOrg.trim();
+
+  const words = beforeDims.split(/\s+/);
+
+  // Last word is typically the brand (proper noun) — keep original case.
+  // Earlier words are category descriptors — lowercase + expand abbreviations.
+  const expanded = words.map((w, i) => {
+    if (i === words.length - 1 && words.length >= 2) return w; // brand — preserve case
+    const lower = w.toLowerCase();
+    return CATEGORY_EXPANSIONS[lower] ?? lower;
+  });
+
+  // Sentence case: capitalize only the first letter
+  let prefix = expanded.join(" ");
+  if (prefix.length > 0) {
+    prefix = prefix.charAt(0).toUpperCase() + prefix.slice(1);
+  }
+
+  return prefix;
+}
+
 export function generateAllegroTitle(product: {
+  nazwa_org: string;
   kolor: string | null;
   wymiary_display: string | null;
   opis_czysty: string;
 }): string {
-  const { kolor, wymiary_display, opis_czysty } = product;
+  const { nazwa_org, kolor, wymiary_display, opis_czysty } = product;
   const lower = opis_czysty.toLowerCase();
 
   // Extract product type descriptor from description
   const type = lower.includes("plecion") ? "pleciony" : null;
 
-  // Extract features — ordered by search frequency on Allegro (from research)
+  // Extract features — ordered by search frequency on Allegro
   const features: string[] = [];
   if (lower.includes("antypoślizgowy") || lower.includes("antypoślizg"))
     features.push("antypoślizgowy");
@@ -87,8 +112,9 @@ export function generateAllegroTitle(product: {
   else if (lower.includes("100% poliester") || lower.includes("100% pes"))
     material = "poliester";
 
-  // Build title: Dywanik łazienkowy Belweder [type] [color] [dims] [features] [material]
-  const parts = ["Dywanik łazienkowy Belweder"];
+  // Build title: [Category] [Brand] [type] [color] [dims] [features] [material]
+  const prefix = extractProductPrefix(nazwa_org);
+  const parts = [prefix];
 
   if (type) parts.push(type);
   if (kolor) parts.push(kolor);
@@ -137,6 +163,7 @@ export function processProducts(raw: RawProduct[]): CleanProduct[] {
     const ean = validateEan(product.EAN);
 
     const tytul_allegro = generateAllegroTitle({
+      nazwa_org: product["NAZWA ORG"],
       kolor,
       wymiary_display: dims.wymiary_display,
       opis_czysty: desc.opis_czysty,

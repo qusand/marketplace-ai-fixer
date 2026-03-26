@@ -25,6 +25,12 @@ export function ProductTable({ products, rawProducts }: Props) {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const { isLinear } = useDesign();
 
+  // Reset expanded row when dataset changes (e.g. new file dropped)
+  const validExpanded =
+    expandedIndex !== null && expandedIndex < products.length
+      ? expandedIndex
+      : null;
+
   const thClass = isLinear
     ? "text-[10px] font-medium uppercase tracking-widest text-muted-foreground/70"
     : "text-xs font-semibold uppercase tracking-wider";
@@ -46,7 +52,7 @@ export function ProductTable({ products, rawProducts }: Props) {
           </TableHeader>
           <TableBody>
             {products.map((product, i) => {
-              const isExpanded = expandedIndex === i;
+              const isExpanded = validExpanded === i;
               return (
                 <TableRow
                   key={product.sku}
@@ -99,10 +105,10 @@ export function ProductTable({ products, rawProducts }: Props) {
       </div>
 
       {/* Expanded detail panel — rendered outside the table for full width */}
-      {expandedIndex !== null && (
+      {validExpanded !== null && (
         <ProductDetailExpanded
-          product={products[expandedIndex]}
-          rawProduct={rawProducts[expandedIndex]}
+          product={products[validExpanded]}
+          rawProduct={rawProducts[validExpanded]}
           onCollapse={() => setExpandedIndex(null)}
         />
       )}

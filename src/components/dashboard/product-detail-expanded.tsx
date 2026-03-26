@@ -210,18 +210,30 @@ export function ProductDetailExpanded({
                   <p className={`font-medium mb-1 ${isLinear ? "text-foreground/60" : "text-foreground/70"}`}>
                     Dlaczego taki tytuł?
                   </p>
-                  <p>
-                    Przeskanowaliśmy ~20 najlepiej sprzedających się ofert na Allegro
-                    dla &quot;dywanik łazienkowy Belweder&quot; za pomocą Claude Code
-                    + Claude-in-Chrome. Belweder to rozpoznawalna linia produktowa
-                    e-floor (50+ ocen, 17 kupujących ostatnio). Top oferty używają
-                    lowercase, zawierają cechy (antypoślizgowy, chłonny) i materiał.
-                    Tytuł generujemy regułami — każda cecha musi mieć źródło
-                    w opisie tego konkretnego produktu. Dane testowe są ubogie
-                    (brak &quot;pleciony&quot;, &quot;bawełna&quot;, &quot;do prania&quot;),
-                    więc tytuły są krótsze niż byłyby z prawdziwym eksportem —
-                    pipeline wyciągnie więcej cech z bogatszych opisów.
-                  </p>
+                  {product.nazwa_org.toLowerCase().includes("belweder") ? (
+                    <p>
+                      Przeskanowaliśmy ~20 najlepiej sprzedających się ofert na Allegro
+                      dla &quot;dywanik łazienkowy Belweder&quot; za pomocą Claude Code
+                      + Claude-in-Chrome. Belweder to rozpoznawalna linia produktowa
+                      e-floor (50+ ocen, 17 kupujących ostatnio). Top oferty używają
+                      lowercase, zawierają cechy (antypoślizgowy, chłonny) i materiał.
+                      Tytuł generujemy regułami — każda cecha musi mieć źródło
+                      w opisie tego konkretnego produktu. Dane testowe są ubogie
+                      (brak &quot;pleciony&quot;, &quot;bawełna&quot;, &quot;do prania&quot;),
+                      więc tytuły są krótsze niż byłyby z prawdziwym eksportem —
+                      pipeline wyciągnie więcej cech z bogatszych opisów.
+                    </p>
+                  ) : (
+                    <p>
+                      Tytuł generowany automatycznie na podstawie reguł: kategoria
+                      i marka wyciągane z nazwy produktu (NAZWA ORG), cechy
+                      (antypoślizgowy, chłonny, miękki, do prania) i materiał
+                      z opisu. Każdy atrybut musi mieć źródło w danych tego
+                      konkretnego SKU. Struktura: [kategoria] [marka] [kolor]
+                      [wymiary] [cechy] [materiał], max 75 znaków, sentence case
+                      — zgodnie z konwencją Allegro.
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
